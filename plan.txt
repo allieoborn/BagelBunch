@@ -1,7 +1,0 @@
-The initial project plan will include:
-A summary of the project being built
-A description of team organization,
-A description of the overall software development process (provided by the instructor)
-Policies, procedures, or tools for communication(slack?), including plans for team meetings, online-coordination, reporting, etc.
-Risk analysis
-
