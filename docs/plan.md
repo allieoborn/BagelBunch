@@ -26,10 +26,4 @@ One Sentence per requirement
 + Consequences 
 + Workarounds >>
 
-<<<<<<< HEAD:plan.md
-#
-### Please visit the [README.md](README.md) for the Configuration Management Plan
-#
-=======
 ## Please visit the [README.md](../README.md) for the Configuration Management Plan
->>>>>>> 58ba1b7d9a528978b7cc527480b634256e1e3637:docs/plan.md
