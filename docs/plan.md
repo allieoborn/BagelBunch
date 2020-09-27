@@ -7,7 +7,7 @@ This project is a Web-based ordering system for a Bagel Shop. It includes the cr
 + Allison Oborn - Requirements.txt
 + Andrew McMullin - Initial Project Plan
 + Eli Hermann - Use Case Diagrams
-+ Wesley Dashner - [ README.md ](README.md)
++ Wesley Dashner - [ README.md ](../README.md)
 
 ## Description of the overall software development process
 ( Provided by the Instructor )
@@ -26,6 +26,10 @@ One Sentence per requirement
 + Consequences 
 + Workarounds >>
 
+<<<<<<< HEAD:plan.md
 #
 ### Please visit the [README.md](README.md) for the Configuration Management Plan
 #
+=======
+## Please visit the [README.md](../README.md) for the Configuration Management Plan
+>>>>>>> 58ba1b7d9a528978b7cc527480b634256e1e3637:docs/plan.md
