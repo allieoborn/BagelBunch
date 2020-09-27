@@ -7,7 +7,7 @@
 + Allison Oborn - Requirements.txt
 + Andrew McMullin - Initial Project Plan
 + Eli Hermann - Use Case Diagrams
-+ Wesley Dashner - [ README.md ](README.md)
++ Wesley Dashner - [ README.md ](../README.md)
 
 ## Description of the overall software development process
 ( Provided by the Instructor )
@@ -21,4 +21,4 @@
 ## Risk analysis
 << Risk, there is no risk when you do it right >>
 
-## Please visit the [README.md](README.md) for the Configuration Management Plan
+## Please visit the [README.md](../README.md) for the Configuration Management Plan
