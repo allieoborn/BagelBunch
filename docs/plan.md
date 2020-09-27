@@ -57,31 +57,29 @@ This project is a Web-based ordering system for a Bagel Shop. It includes the cr
 #### View the time it needs to be ready
 + Should, Added development time, None.
 #### Mark orders as in-progress
-+ Should, , None.
++ Should, Adding the status functionality, None.
 #### Remove bagel items from inventory when they make the bagels or when the bagels go bad
-+ Should, , None.
++ Should, Added development time, None.
 #### Mark orders as complete when they're delivered to the cashier
-+ Must, , None.
++ Must, Added development time, Should we jsut delete them.
 #### View all open orders
-+ Must, , None.
++ Could, Data rendering when there are a lot, Display the top 20 with pagination.
 #### Remove drinks and other items from inventory
-+ Should, , None.
++ Should, Added development time, None.
 #### Take money out of a customer’s account for their order
-+ Must, , None.
++ Must, Added development time, None.
 #### View all orders
-+ Must, , None.
++ Could, Data rendering when there are a lot, Display the top 20 with pagination.
 #### Generate the inventory report (would like to have 100 of everything in inventory)
-+ Must, , None.
++ Must, Added development time, None.
 #### Mark individual inventory items as restocked (Could also include an option for marking the whole store as restocked rather than just individual items)
-+ Should, , None.
++ Should, Added development time, None.
 #### Approve Cashier/Chef accounts
-+ Must, , None.
++ Must, Emailing confirmation, None.
 #### Add/Remove menu items
-+ Must, , None.
-#### Store information about which items people buy the most and which items get thrown away, so they can improve inventory purchasing strategies in the future
-+ Could, , None.
-#### Sort menu items so that the most popular items are at the top
-+ Could, , None.
++ Must, Added development time, None.
+
+
 
 
 ## Please visit the [README.md](../README.md) for the Configuration Management Plan
