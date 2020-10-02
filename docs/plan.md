@@ -1,16 +1,36 @@
 # The Initial Project Plan
 
 ## Summary of the project being built
-This project is a Web-based ordering system for a Bagel Shop. It includes the creation of new bagels by the cashier or the customer. This is then made available for the Chefs to know what to make. This Application will keep track of the Bagels Status for all to know and observe.
+This project is a Web-based ordering system for a Bagel Shop. With everything stored to the cloud the Bagel Team will be able to see and manage their inventory from any part of the store. The ability to create new bagels will be available to both the cashier and the customer from wherever, either in the store or on their phone at home for in-store pick up or delivery. This order is then made available for the Chefs in the kitchen to know how to make the next bagels. This Application will also keep track of the Bagels status, for all users involved in the process to know. When a new Bagel is ordered it will be in a Created status and then the chef will move it to In-Progress so the customer can know. Then the cashier will move it to Completed when they are ready to give it to the customer.
 
 ## Description of team organization
+```
+Current Plan
+```
 + Allison Oborn - Requirements.txt
 + Andrew McMullin - Initial Project Plan
 + Eli Hermann - Use Case Diagrams
 + Wesley Dashner - [ README.md ](../README.md)
 
+```
+Future Plan
+```
++ Allison Oborn - Look pretty!
++ Andrew McMullin - Data Processing from frontend to backend
++ Eli Hermann - Complex Frontend Problems
++ Wesley Dashner - Backend Database Management
+
 ## Description of the overall software development process
-( Provided by the Instructor )
+The development will be broken up into five phases.  Each phase will be a little like a Sprint in an Agile method and a little like an iteration in a Spiral process.  Specifically, each phase will be like a Sprint, in that work to be done will be organized into small tasks, placed into a “backlog”, and prioritized.   Then, using on time-box scheduling, the team will decide which tasks the phase (Sprint) will address.  The team will use a Scrum Board to keep track of tasks in the backlog, those that will be part of the current Sprint, those in progress, and those that are done.
+
+Each phase will also be a little like an iteration in a Spiral process, in that each phase will include some risk analysis and that any development activity (requirements capture, analysis, design, implementation, etc.) can be done during any phase.  Early phases will focus on understanding (requirements capture and analysis) and subsequent phases will focus on design and implementation.  Each phase will include a retrospective.
+
+    Phase 1 - Requirements Capture
+    Phase 2 - Analysis, Architectural, UI, and DB Design
+    Phase 3 - Implementation, and Unit Testing
+    Phase 4 - More Implementation and Testing 
+
+We will use Unified Modeling Language (UML) to document user goals, structural concepts, component interactions, and behaviors.
 
 ## Policies & Procedures
 + We will be using Zoom for video interaction and Slack for other communication, such as ideas and topics to discuss. 
@@ -78,8 +98,5 @@ This project is a Web-based ordering system for a Bagel Shop. It includes the cr
 + Must, Emailing confirmation, None.
 #### Add/Remove menu items
 + Must, Added development time, None.
-
-
-
 
 ## Please visit the [README.md](../README.md) for the Configuration Management Plan
