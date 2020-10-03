@@ -25,7 +25,6 @@ The development will be broken up into four phases.  Each phase will be a little
 Each phase will also be a little like an iteration in a Spiral process, in that each phase will include some risk analysis and that any development activity (requirements capture, analysis, design, implementation, etc.) can be done during any phase.  Early phases will focus on understanding (requirements capture and analysis) and subsequent phases will focus on design and implementation.  Each phase will include a retrospective.
 
     Phase 1 - Requirements Capture
-    Phase 1.1 - Take Allie on a Date.
     Phase 2 - Analysis, Architectural, UI, and DB Design
     Phase 3 - Implementation, and Unit Testing
     Phase 4 - More Implementation and Testing 
