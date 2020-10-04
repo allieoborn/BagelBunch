@@ -2,9 +2,16 @@
 ## Bagel Bunch
 #### 1. Introduction and Context
 Dan has asked us to make a web application for his bagel store.
-This app should lead the customer through the ordering process, 
+This app should lead the customer through the ordering process 
 and assist the other characters through the process of preparing 
-and delivering the bagels to the customers.
+and delivering the bagels to the customers. 
+First a customer should order their food on the website 
+(the menu items include bagels, shmears, sammiches, and beverages)
+then the chef will prepare their food and deliver it to
+the cashier who makes sure it gets to the customer.
+This app will help the process go smoothly by updating the 
+customer about the status of their order and making it
+easy for the employees and the manager to keep track of inventory.
 
 #### 2. Users and Their Goals
 - Customers: order bagels
@@ -17,7 +24,8 @@ and delivering the bagels to the customers.
 - All the actors need to be able to access the web page at any time
 - Chefs, cashiers, and the manager should also be able to order food, 
 whether that be through an additional customer account, or a function of their employee account
-##### Customers need to be able to:
+
+Customers need to be able to:
 - Create an account (with $100 in it)
 - Account information includes: name, username, password, email, phone number, and customer ID
 - View the menu and place an order
@@ -33,17 +41,20 @@ whether that be through an additional customer account, or a function of their e
 (Notification could be sent through email or text message - 
 I would think text message would be the most convenient for the customer)
 - If they buy a dozen bagels, have their account note that they get a free bagel
-##### Chef needs to be able to:
+
+Chef needs to be able to:
 - View all open bagel orders
 - View the time it needs to be ready
 - Mark orders as in-progress
 - Remove bagel items from inventory when they make the bagels or when the bagels go bad
 - Mark orders as complete when they're delivered to the cashier
-##### Cashier needs to be able to:
+
+Cashier needs to be able to:
 - View all open orders
 - Remove drinks and other items from inventory
 - Take money out of a customer’s account for their order
-##### Manager needs to be able to:
+
+Manager needs to be able to:
 - View all orders
 - Generate the inventory report 
 (would like to have 100 of everything in inventory)
