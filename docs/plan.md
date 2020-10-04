@@ -1,7 +1,13 @@
 # The Initial Project Plan
 
 ## Summary of the project being built
-This project is a Web-based ordering system for a Bagel Shop. With everything stored to the cloud the Bagel Team will be able to see and manage their inventory from any part of the store. The ability to create new bagels will be available to both the cashier and the customer from wherever, either in the store or on their phone at home for in-store pick up or delivery. This order is then made available for the Chefs in the kitchen to know how to make the next bagels. This Application will also keep track of the Bagels status, for all users involved in the process to know. When a new Bagel is ordered it will be in a Created status and then the chef will move it to In-Progress so the customer can know. Then the cashier will move it to Completed when they are ready to give it to the customer.
+This project is a Web-based ordering system for a Bagel Shop. With everything stored to the cloud the Bagel Team will be able to see and manage their inventory from any part of the store. 
+
+The ability to create new bagels will be available to both the cashier and the customer from anywhere, either in the store or on their phone at home for in-store pick up or delivery. 
+
+This order is then made available for the Chefs in the kitchen to know how to make the next bagels. 
+
+This Application will also keep track of the Bagels status, for all users involved in the process to know. When a new Bagel is ordered it will be in a Created status and then the chef will move it to In-Progress so the customer can know. Then the cashier will move it to Completed when they are ready to give it to the customer.
 
 ## Description of team organization
 ```
