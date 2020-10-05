@@ -14,10 +14,13 @@ customer about the status of their order and making it
 easy for the employees and the manager to keep track of inventory.
 
 #### 2. Users and Their Goals
-- Customers: order bagels
+- Customers: order bagels and make changes to their account info
 - Chefs: prepare bagels and keep track of inventory
 - Cashiers: deliver bagels and charge customers for the bagels
 - Manager: make sure there's enough inventory
+
+To view more in-depth information about users and their goals, 
+check the UseCaseDiagrams folder
 
 #### 3 & 4. Functional and Non-Functional Requirements
 - All the actors(customers, chefs, cashiers, and the manager) need to have a login
@@ -69,13 +72,15 @@ so they can improve inventory purchasing strategies in the future
 - Sort menu items so that the most popular items are at the top
 
 #### 6. Glossary
-- Inventory: a complete list of all the items in the store.
-- Strategies: a plan of action designed to achieve an overall goal.
-- Notification: something that informs someone of something.
-- Customer: a person or organization that buys goods or services from a store or business.
-- Chef: a professional cook
 - Cashier: a person handling payments and receipts in a store, bank, or other business.
-- Manager: a person responsible for controlling or administering all or part of a company.
-- Initialize: set to the value or put in the condition appropriate to the start of an operation.
+- Chef: a professional cook
+- Customer: a person or organization that buys goods or services from a store or business.
 - Database: a structured set of data held in a computer, especially one that is accessible in various ways.
+- Initialize: set to the value or put in the condition appropriate to the start of an operation.
+- Inventory: a complete list of all the items in the store.
+- Manager: a person responsible for controlling or administering all or part of a company.
+- Notification: something that informs someone of something.
+- Sammiches: they're like sandwiches, but typically much better.
+- Shmears: delectable spreads that act as a topping for your bagels.
+- Strategies: a plan of action designed to achieve an overall goal.
 - Structure: the arrangement of and relations between the parts or elements of something complex.

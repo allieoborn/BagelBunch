@@ -20,7 +20,7 @@ Current Plan
 ```
 Future Plan
 ```
-+ Allison Oborn - Look pretty!
++ Allison Oborn - Project Management and backend development
 + Andrew McMullin - Data Processing from frontend to backend
 + Eli Hermann - Complex Frontend Problems
 + Wesley Dashner - Backend Database Management
