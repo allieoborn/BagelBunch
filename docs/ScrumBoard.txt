@@ -11,6 +11,6 @@ Wednesday Sept 30 - Scrum master: Allie
 		Low Fidelity Prototype: Allie
 Wednesday Oct 7 - scrum master: Wesley
 	continue working on items for Milestone 2
-	separate issues into smaller segments: Eli
+	separate issues into smaller segments: Eli - completed Oct 7
 	prepare 5-10 minute presentation for meeting with Dan: Everyone
-	add scrum board text file to git: Allie
+	add scrum board text file to git: Allie - completed Oct 7
