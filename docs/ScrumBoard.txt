@@ -1,9 +1,9 @@
 Scrum Board
 Wednesday Sept 30 - Scrum master: Allie
 	Items needing improvement from Milestone 1
-		Requirements: Allie - updated Oct 2
-		Plan: Andrew - updated Oct 3
-		Use Case Diagrams: Eli - updated Oct 5
+		Requirements: Allie - completed Oct 2
+		Plan: Andrew - completed Oct 3
+		Use Case Diagrams: Eli - completed Oct 5
 	Items to start working on for Milestone 2
 		Class Diagram: Wesley
 		Activity Diagram: Andrew
