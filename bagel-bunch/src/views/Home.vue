@@ -1,18 +1,26 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <BreadCrumb :current="currentPhase"/>
+    <button @click="cycle">Click Me</button>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import BreadCrumb from "../components/BreadCrumb";
 
 export default {
-  name: 'Home',
   components: {
-    HelloWorld
+    BreadCrumb: BreadCrumb
+  },
+  data () {
+    return {
+      currentPhase: "Bagels",
+    }
+  },
+  methods: {
+    cycle: function(){
+      this.currentPhase = "Eli";
+    }
   }
 }
 </script>
