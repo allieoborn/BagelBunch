@@ -12,6 +12,9 @@ We will use Vue to create the frontend. We're not sure exactly what we will use 
 ## Build Instructions
 Run `npm install` to install all dependencies for building and testing. You can use `npm run serve` inside the bagel-bunch directory to view the site at `http://localhost:8080`
 
+## Hosted site
+The hosted site can be found at https://bagelbunch-b5e21.web.app
+
 ## Unit Testing Instructions
 To run the unit tests, use `npm run test:unit`.
 
