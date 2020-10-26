@@ -14,3 +14,9 @@ Wednesday Oct 7 - scrum master: Wesley
 	separate issues into smaller segments: Eli - completed Oct 7
 	prepare 5-10 minute presentation for meeting with Dan: Everyone
 	add scrum board text file to git: Allie - completed Oct 7
+
+Monday Oct 26 - scrum master: Allie
+    finish backend for account login, creation, and editing: Wesley
+    front end for account login: Andrew
+    account creation: Allie
+    editing account info: Eli
