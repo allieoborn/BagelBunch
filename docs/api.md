@@ -54,3 +54,11 @@
 * Response
     * success: bool
     * error: Optional[str]
+
+### POST /login
+* Request
+    * email: str
+    * password: float
+* Response
+    * success: bool
+    * error: Optional[str]

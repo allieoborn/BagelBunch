@@ -192,3 +192,32 @@ export const addMoney = functions.https.onRequest(async (request, response) => {
     response.status(200).json({success: true});
     return;
 });
+
+export const login = functions.https.onRequest(async (request, response) => {
+    response.set('Access-Control-Allow-Origin', '*');
+    if (request.method !== 'POST') {
+        response.status(400).json({error: 'POST requests only'});
+        return;
+    }
+    if (request.header('Content-Type') !== 'application/json') {
+        response.status(400).json({error: 'Content-Type header must be application/json'});
+        return;
+    }
+    const email = request.body.email;
+    const password = request.body.password;
+    if (!email) {
+        response.status(400).json({success: false, error: 'email argument required'});
+        return;
+    }
+    if (!password) {
+        response.status(400).json({success: false, error: 'password argument required'});
+        return;
+    }
+    const accounts = await admin.firestore().collection('accounts').where('email', '==', email).get();
+    if (accounts.docs[0].get('password') !== password) {
+        response.status(400).json({success: false, error: 'incorrect password'});
+        return;
+    }
+    response.status(200).json({success: true});
+    return;
+});
