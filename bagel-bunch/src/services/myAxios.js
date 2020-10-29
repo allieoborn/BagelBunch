@@ -23,11 +23,6 @@ myAxios.interceptors.request.use(config => {
     config.data['accountID'] = accountID;
   }
 
-  const email = store.state.user.email;
-  if (email !== undefined) {
-    config.data['email'] = email;
-  }
-
   return config;
 
 }, error => Promise.reject(error));
