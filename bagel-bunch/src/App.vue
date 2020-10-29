@@ -22,13 +22,15 @@
 
     <!-- Drawer, I wasn't able to move to Component -->
     <v-navigation-drawer name="Drawer" v-model="drawer" absolute temporary>
+      <!-- User Name and Email -->
       <v-list-item>
+        <!-- Back Button -->
         <v-icon text class="mr-5" @click.stop="drawer = !drawer">
           mdi-chevron-left
         </v-icon>
         <v-list-item-content>
           <v-list-item-title class="title">
-            {{ user.first_name }} {{ user.last_name }}
+            {{ user.name }}
           </v-list-item-title>
           <v-list-item-subtitle>
             {{ user.email }}

@@ -5,6 +5,10 @@
 </template>
 
 <script>
+// This Component tries to logout on mounted
+//  Therefore it is better to go away from
+//  this Component no matter what
+
 export default {
   name: "Logout",
   methods: {
@@ -18,9 +22,7 @@ export default {
       } else {
         next = this.$route.params.last;
       }
-      // This Component tries to logout on mounted
-      //  Therefore it is better to go away from
-      //  this Component no matter what
+
       this.$router.push({ name: next });
     }
   },

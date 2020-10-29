@@ -6,29 +6,33 @@ Vue.use(VueRouter);
 
 /* eslint-disable */
 const routes = [
-  // icon: null, means it won't show up in the drawer
-  { path: "/", name: "Home", component: () => import("../views/Home.vue"), 
+
+  { 
+    path: "/", name: "Home", component: () => import("../views/Home.vue"), 
     meta: { 
       requiresAuth: true,
       drawer: true,
       icon: "mdi-home"
     }
   },
-  { path: "/profile", name: "Profile", component: () => import("../views/Profile.vue"), 
+  { 
+    path: "/profile", name: "Profile", component: () => import("../views/Profile.vue"), 
     meta: { 
       requiresAuth: true,
       drawer: true,
       icon: "mdi-account"
     }
   },
-  { path: "/login", name: "Login", component: () => import("../views/Login.vue"),
+  { 
+    path: "/login", name: "Login", component: () => import("../views/Login.vue"),
     meta: { 
       requiresAuth: false,
       drawer: false,
       icon: null
     }
   },
-  { path: "/logout", name: "Logout", component: () => import("../views/Logout.vue"),
+  { 
+    path: "/logout", name: "Logout", component: () => import("../views/Logout.vue"),
     meta: { 
       requiresAuth: true,
       drawer: true,

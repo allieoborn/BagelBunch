@@ -6,9 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     site: {
-      compName: "GetPuzzled",
+      compName: "BagelBunch",
       mainColor: "dark",
-      accentColor: "primary"
+      accentColor: "primary" // not used anywhere yet
     },
 
     loggedIn: false,
@@ -21,7 +21,13 @@ export default new Vuex.Store({
   },
   getters: {
     user(state) {
-      return state.user;
+      let updateuser = { 
+        name: `${state.user.first_name} ${state.user.last_name}`
+      }
+      return { 
+        ...state.user, 
+        ...updateuser
+      };
     },
     site(state) {
       return state.site;
