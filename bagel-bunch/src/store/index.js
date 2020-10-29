@@ -14,20 +14,14 @@ export default new Vuex.Store({
     loggedIn: false,
 
     user: {
-      first_name: "Andrew",
-      last_name: "McMullin",
-      email: "mcmullinboy15@gmail.com"
+      name: null,
+      email: null,
+      accountID: 124665
     }
   },
   getters: {
     user(state) {
-      let updateUser = {
-        name: `${state.user.first_name} ${state.user.last_name}`
-      }
-      return {
-        ...state.user,
-        ...updateUser
-      };
+      return state.user;
     },
     site(state) {
       return state.site;
