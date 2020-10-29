@@ -14,7 +14,7 @@ const functions = {
   async createAccount(data) {
     console.log("Creating Your New Account: ", data)
     // name, email, password, type: ('customer', 'chef', 'cashier', 'manager'), money, favorite,
-    
+
   },
 
   async getAccountID() {
@@ -40,7 +40,6 @@ const functions = {
   async login() {
     // email, pass
 
-    alert("Logging you in ...");
     store.state.loggedIn = true;
     router.push({ name: "Home" })
   },
