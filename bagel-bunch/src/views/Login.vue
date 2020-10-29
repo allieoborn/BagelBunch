@@ -1,12 +1,12 @@
 <template>
   <v-container>
-    Hello Home
+    Hello Login
   </v-container>
 </template>
 
 <script>
 export default {
-  name: "Home",
-  title: "Home"
+  name: "Login",
+  title: "Login"
 };
 </script>
