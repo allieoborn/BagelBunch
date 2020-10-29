@@ -2,7 +2,12 @@ import axios from "axios";
 import store from '../store';
 
 const myAxios = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? 'https://us-central1-bagelbunch-b5e21.cloudfunctions.net' : 'http://localhost:8080'
+  baseURL: process.env.NODE_ENV === 'production' ? 'https://us-central1-bagelbunch-b5e21.cloudfunctions.net' : 'http://localhost:8080',
+//   baseURL: 'https://us-central1-bagelbunch-b5e21.cloudfunctions.net',
+  headers: {
+    "content-type": "application/json"
+  },
+  responseType: "json"
 });
 
 // This is just so the accountID and email 
