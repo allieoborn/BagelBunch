@@ -23,7 +23,7 @@
     * success: bool
     * error: Optional[str]
     
-### POST /getAccountID
+### POST /getAccountID (deprecated)
 * Request
     * email: str
 * Response
@@ -61,4 +61,6 @@
     * password: float
 * Response
     * success: bool
+    * account: Account
+    * accountID: str
     * error: Optional[str]
