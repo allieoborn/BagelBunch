@@ -5,9 +5,6 @@ import * as admin from 'firebase-admin';
 admin.initializeApp(functions.config().firebase);
 const db = admin.firestore();
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-
 export const helloWorld = functions.https.onRequest((request, response) => {
     response.set('Access-Control-Allow-Origin', '*');
     response.status(200).json({message: 'hello from firebase'});
@@ -71,30 +68,30 @@ export const createAccount = functions.https.onRequest(async (request, response)
     return;
 });
 
-export const getAccountID = functions.https.onRequest(async (request, response) => {
-    response.set('Access-Control-Allow-Origin', '*');
-    if (request.method !== 'POST') {
-        response.status(400).json({error: 'POST requests only'});
-        return;
-    }
-    if (request.header('Content-Type') !== 'application/json') {
-        response.status(400).json({error: 'Content-Type header must be application/json'});
-        return;
-    }
-    const email = request.body.email;
-    if (!email) {
-        response.status(400).json({success: false, error: 'email argument required'});
-        return;
-    }
-    const accounts = await admin.firestore().collection('accounts').where('email', '==', email).get();
-    if (accounts.docs.length === 0) {
-        response.status(400).json({success: false, error: `no account with that email (${email}) was found`});
-        return;
-    }
-    const id = accounts.docs[0].id;
-    response.status(200).json({success: true, id: id});
-    return;
-});
+// export const getAccountID = functions.https.onRequest(async (request, response) => {
+//     response.set('Access-Control-Allow-Origin', '*');
+//     if (request.method !== 'POST') {
+//         response.status(400).json({error: 'POST requests only'});
+//         return;
+//     }
+//     if (request.header('Content-Type') !== 'application/json') {
+//         response.status(400).json({error: 'Content-Type header must be application/json'});
+//         return;
+//     }
+//     const email = request.body.email;
+//     if (!email) {
+//         response.status(400).json({success: false, error: 'email argument required'});
+//         return;
+//     }
+//     const accounts = await admin.firestore().collection('accounts').where('email', '==', email).get();
+//     if (accounts.docs.length === 0) {
+//         response.status(400).json({success: false, error: `no account with that email (${email}) was found`});
+//         return;
+//     }
+//     const id = accounts.docs[0].id;
+//     response.status(200).json({success: true, id: id});
+//     return;
+// });
 
 export const updateName = functions.https.onRequest(async (request, response) => {
     response.set('Access-Control-Allow-Origin', '*');
@@ -214,10 +211,14 @@ export const login = functions.https.onRequest(async (request, response) => {
         return;
     }
     const accounts = await admin.firestore().collection('accounts').where('email', '==', email).get();
-    if (accounts.docs[0].get('password') !== password) {
+    if (accounts.docs.length === 0) {
+        response.status(400).json({success: false, error: 'no account found with that email'})
+    }
+    const account = accounts.docs[0];
+    if (account.data().password !== password) {
         response.status(400).json({success: false, error: 'incorrect password'});
         return;
     }
-    response.status(200).json({success: true});
+    response.status(200).json({success: true, account: account.data(), accountID: account.id});
     return;
 });
