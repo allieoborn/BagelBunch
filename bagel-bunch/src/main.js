@@ -7,7 +7,7 @@ import vuetify from "./plugins/vuetify";
 import "./plugins/bootstrap-vue";
 
 import "./services/func";
-import "./myAxios"
+import "./services/myAxios";
 
 
 Vue.config.productionTip = false;
