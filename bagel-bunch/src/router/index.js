@@ -4,7 +4,6 @@ import store from "../store";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
-/* eslint-disable */
 const routes = [
 
   /*

@@ -3,8 +3,12 @@ import axios from "axios";
 import store from '../store';
 
 const myAxios = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? 'https://us-central1-bagelbunch-b5e21.cloudfunctions.net' : 'http://localhost:8080',
-//   baseURL: 'https://us-central1-bagelbunch-b5e21.cloudfunctions.net',
+  // baseURL: process.env.NODE_ENV === 'production' ? 'https://us-central1-bagelbunch-b5e21.cloudfunctions.net' : 'http://localhost:8080',
+  baseURL: 'https://us-central1-bagelbunch-b5e21.cloudfunctions.net',
+
+// If we need  too override this for any reason
+//  I haven't looked up if it's as easy as adding
+//  it on the call
   headers: {
     "content-type": "application/json"
   },
@@ -15,7 +19,7 @@ const myAxios = axios.create({
 //  is sent on every request if we used this axios
 myAxios.interceptors.request.use(config => {
   if (config.data === undefined) {
-      config.data = {};
+    config.data = {};
   }
 
   const accountID = store.state.user.accountID;

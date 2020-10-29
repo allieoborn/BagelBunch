@@ -2,15 +2,16 @@
   <v-app>
     <!-- Top Nav Bar -->
     <v-app-bar app :color="site.mainColor" dark>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click.stop="drawer = true"></v-app-bar-nav-icon>
 
       <v-spacer></v-spacer>
 
+      <img src="favicon.ico" alt="Bagel-Logo" width="50" class="mx-5"/>
       <div class="h3 my-0">{{ site.compName }}</div>
 
       <v-spacer></v-spacer>
 
-      <div v-if="$store.state.loggedIn">
+      <div v-if="loggedIn">
         <router-link class="mx-5" :to="{ name: 'Profile' }">
           <v-icon>mdi-account</v-icon>
         </router-link>
@@ -24,7 +25,7 @@
       <!-- User Name and Email -->
       <v-list-item>
         <!-- Back Button -->
-        <v-icon text class="mr-5" @click.stop="drawer = !drawer">
+        <v-icon text class="mr-5" @click.stop="drawer = false">
           mdi-chevron-left
         </v-icon>
         <v-list-item-content>
@@ -40,7 +41,7 @@
       <v-divider></v-divider>
 
       <v-list dense nav>
-        <div v-for="item in items" :key="item.title" @click.stop="drawer = !drawer">
+        <div v-for="item in items" :key="item.title" @click.stop="drawer = false">
           <v-list-item v-if="displayItem(item)" link>
             <v-btn text block :to="item.path">
               <v-list-item-icon>
@@ -73,11 +74,9 @@ export default {
   }),
   methods: {
     logIn() {
-      this.drawer = false;
       this.$func.login()
     },
     logOut() {
-      this.drawer = false;
       this.$func.logout()
     },
     displayItem(item) {
@@ -87,8 +86,15 @@ export default {
     }
   },
   computed: {
+    // This makes the routes in the router display in
+    //  the Drawer, based on the meta: data. But if
+    //  We don't want that, we can use something else. 
+    //  If we don't want the drawer, just let me know.
     items() {
       return this.$router.options.routes;
+    },
+    loggedIn() {
+      return this.$store.state.loggedIn;
     },
     ...mapGetters({
       user: "user",
