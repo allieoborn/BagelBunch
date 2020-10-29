@@ -21,12 +21,12 @@ export default new Vuex.Store({
   },
   getters: {
     user(state) {
-      let updateuser = { 
+      let updateUser = {
         name: `${state.user.first_name} ${state.user.last_name}`
       }
-      return { 
-        ...state.user, 
-        ...updateuser
+      return {
+        ...state.user,
+        ...updateUser
       };
     },
     site(state) {

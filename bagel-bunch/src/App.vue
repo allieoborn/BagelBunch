@@ -10,14 +10,13 @@
 
       <v-spacer></v-spacer>
 
-      <router-link
-        v-if="$store.state.loggedIn"
-        class="mx-5"
-        :to="{ name: 'Profile' }"
-      >
-        <v-icon>mdi-account</v-icon>
-      </router-link>
-      <v-btn text v-else @click="signIn()">Sign In</v-btn>
+      <div v-if="$store.state.loggedIn">
+        <router-link class="mx-5" :to="{ name: 'Profile' }">
+          <v-icon>mdi-account</v-icon>
+        </router-link>
+        <v-btn text @click="logOut()">Log Out</v-btn>
+      </div>
+      <v-btn text v-else @click="logIn()">LogIn</v-btn>
     </v-app-bar>
 
     <!-- Drawer, I wasn't able to move to Component -->
@@ -41,8 +40,8 @@
       <v-divider></v-divider>
 
       <v-list dense nav>
-        <div v-for="item in items" :key="item.title">
-          <v-list-item v-if="item.meta.drawer && $store.state.loggedIn" link>
+        <div v-for="item in items" :key="item.title" @click.stop="drawer = !drawer">
+          <v-list-item v-if="displayItem(item)" link>
             <v-btn text block :to="item.path">
               <v-list-item-icon>
                 <v-icon>{{ item.meta.icon }}</v-icon>
@@ -54,12 +53,6 @@
             </v-btn>
           </v-list-item>
         </div>
-
-        <v-list-item v-if="!$store.state.loggedIn">
-          <v-btn text block @click="signIn()">
-            <v-list-item-content>Please Sign-In</v-list-item-content>
-          </v-btn>
-        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -79,10 +72,18 @@ export default {
     drawer: null
   }),
   methods: {
-    signIn() {
+    logIn() {
       this.drawer = false;
-      alert("Signing you in ...");
-      this.$store.state.loggedIn = true;
+      this.$func.login()
+    },
+    logOut() {
+      this.drawer = false;
+      this.$func.logout()
+    },
+    displayItem(item) {
+      // Displays when logged out or logged on 
+      //  but Doesn't display a route no-matter what.
+      return item.meta.drawer && (item.meta.requiresAuth == this.$store.state.loggedIn)
     }
   },
   computed: {

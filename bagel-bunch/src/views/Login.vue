@@ -7,6 +7,5 @@
 <script>
 export default {
   name: "Login",
-  title: "Login"
 };
 </script>

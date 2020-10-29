@@ -7,6 +7,13 @@ Vue.use(VueRouter);
 /* eslint-disable */
 const routes = [
 
+  /*
+    The Drawer renders from the routes Array
+    it uses the path, name, and icon to display. 
+    set drawer to false and it will not display,
+    set requiresAuth to True and it will not 
+    display unless logged in.
+  */
   { 
     path: "/", name: "Home", component: () => import("../views/Home.vue"), 
     meta: { 
@@ -28,17 +35,9 @@ const routes = [
     meta: { 
       requiresAuth: false,
       drawer: false,
-      icon: null
+      icon: 'mdi-arrow-up'
     }
   },
-  { 
-    path: "/logout", name: "Logout", component: () => import("../views/Logout.vue"),
-    meta: { 
-      requiresAuth: true,
-      drawer: true,
-      icon: "mdi-cancel"
-    }
-  }
 ];
 
 const router = new VueRouter({
@@ -57,8 +56,8 @@ router.beforeEach((to, from, next) => {
     if (!store.state.loggedIn) {
       next({ name: 'Login' })
     } else {
-
-      next() 
+      // Could do a status check here
+      next()
     }
   } else {
     next(); 
