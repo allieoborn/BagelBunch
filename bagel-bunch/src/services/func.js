@@ -43,6 +43,7 @@ const functions = {
   //  Maybe all of these can get moved there but whatever
   login(data) {
     console.log(data)
+    // axios.post('/posts', {"asdf": "asdf" } )
     axios.post('/bagel/login', {"email": "wdashner11@gmail.com", "password":"different_password"})
     .then(data => {
       console.log(data)

@@ -58,7 +58,8 @@ export default {
   padding-top: 5rem;
 
   min-height: 45rem;
+  min-width: 500px;
 
-  padding: 0px 200px;
+  padding: 0px 20%;
 }
 </style>
