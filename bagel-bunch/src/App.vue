@@ -17,7 +17,6 @@
         </router-link>
         <v-btn text @click="logOut()">Log Out</v-btn>
       </div>
-      <v-btn text v-else @click="logIn()">LogIn</v-btn>
     </v-app-bar>
 
     <!-- Drawer, I wasn't able to move to Component -->
