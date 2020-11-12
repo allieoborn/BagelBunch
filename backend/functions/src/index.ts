@@ -7,12 +7,24 @@ const db = admin.firestore();
 
 export const helloWorld = functions.https.onRequest((request, response) => {
     response.set('Access-Control-Allow-Origin', '*');
+    if (request.method === 'OPTIONS') {
+        response.set('Access-Control-Allow-Methods', 'POST');
+        response.set('Access-Control-Allow-Headers', 'Content-Type');
+        response.status(204).send('');
+        return;
+    }
     response.status(200).json({message: 'hello from firebase'});
     return;
 });
 
 export const createAccount = functions.https.onRequest(async (request, response) => {
     response.set('Access-Control-Allow-Origin', '*');
+    if (request.method === 'OPTIONS') {
+        response.set('Access-Control-Allow-Methods', 'POST');
+        response.set('Access-Control-Allow-Headers', 'Content-Type');
+        response.status(204).send('');
+        return;
+    }
     if (request.method !== 'POST') {
         response.status(400).json({success: false, error: 'POST requests only'});
         return;
@@ -70,6 +82,12 @@ export const createAccount = functions.https.onRequest(async (request, response)
 
 // export const getAccountID = functions.https.onRequest(async (request, response) => {
 //     response.set('Access-Control-Allow-Origin', '*');
+//         if (request.method === 'OPTIONS') {
+//             response.set('Access-Control-Allow-Methods', 'POST');
+//             response.set('Access-Control-Allow-Headers', 'Content-Type');
+//             response.status(204).send('');
+//             return;
+//         }
 //     if (request.method !== 'POST') {
 //         response.status(400).json({error: 'POST requests only'});
 //         return;
@@ -95,6 +113,12 @@ export const createAccount = functions.https.onRequest(async (request, response)
 
 export const updateName = functions.https.onRequest(async (request, response) => {
     response.set('Access-Control-Allow-Origin', '*');
+    if (request.method === 'OPTIONS') {
+        response.set('Access-Control-Allow-Methods', 'POST');
+        response.set('Access-Control-Allow-Headers', 'Content-Type');
+        response.status(204).send('');
+        return;
+    }
     if (request.method !== 'POST') {
         response.status(400).json({error: 'POST requests only'});
         return;
@@ -126,6 +150,12 @@ export const updateName = functions.https.onRequest(async (request, response) =>
 
 export const updatePassword = functions.https.onRequest(async (request, response) => {
     response.set('Access-Control-Allow-Origin', '*');
+    if (request.method === 'OPTIONS') {
+        response.set('Access-Control-Allow-Methods', 'POST');
+        response.set('Access-Control-Allow-Headers', 'Content-Type');
+        response.status(204).send('');
+        return;
+    }
     if (request.method !== 'POST') {
         response.status(400).json({error: 'POST requests only'});
         return;
@@ -157,6 +187,12 @@ export const updatePassword = functions.https.onRequest(async (request, response
 
 export const addMoney = functions.https.onRequest(async (request, response) => {
     response.set('Access-Control-Allow-Origin', '*');
+    if (request.method === 'OPTIONS') {
+        response.set('Access-Control-Allow-Methods', 'POST');
+        response.set('Access-Control-Allow-Headers', 'Content-Type');
+        response.status(204).send('');
+        return;
+    }
     if (request.method !== 'POST') {
         response.status(400).json({error: 'POST requests only'});
         return;
@@ -192,6 +228,12 @@ export const addMoney = functions.https.onRequest(async (request, response) => {
 
 export const login = functions.https.onRequest(async (request, response) => {
     response.set('Access-Control-Allow-Origin', '*');
+    if (request.method === 'OPTIONS') {
+        response.set('Access-Control-Allow-Methods', 'POST');
+        response.set('Access-Control-Allow-Headers', 'Content-Type');
+        response.status(204).send('');
+        return;
+    }
     if (request.method !== 'POST') {
         response.status(400).json({error: 'POST requests only'});
         return;

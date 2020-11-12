@@ -36,9 +36,16 @@ export default {
   },
   methods: {
     async submitLogin() {
-      let resp = await this.$func.login(this.form);
-      console.log(resp);
-      console.log(resp.data);
+      const rawResponse = await fetch('https://us-central1-bagelbunch-b5e21.cloudfunctions.net/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email: 'wdashner11@gmail.com', password: 'different_password'})
+      });
+
+      const content = await rawResponse.json();
+      console.log(content);
     },
   },
   created() {
