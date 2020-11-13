@@ -17,64 +17,89 @@ const functions = {
 
   async createAccount(data) {
     console.log("Creating Your New Account: ", data)
-    // name, email, password, type: ('customer', 'chef', 'cashier', 'manager'), money, favorite,
-
+    /* Example:
+      data = {
+        name: "", 
+        email: "", 
+        password: "", 
+        type: ('customer', 'chef', 'cashier', 'manager'),
+        money: 0, 
+        favorite: null,
+    */
+    let resp = await axios.post('/createAccount', data);
+    return resp.data.success
   },
 
-  async updateName() {
-    // newName
+  /* For the next 3:    <Andrew>
+    Another Better option that I won't do rn cuz I 
+    need to sleep is just v-model all the data <input/>
+    tags to the $store and then here we just need to 
+    Grab it always from there instead of passing a param.
+  */
+  async updateName(new_name) {
+    let resp = await axios.post('/updateName', { name: new_name });
+    if (resp.data.success) {
+      store.state.user.name = new_name
+    }
 
+    return resp.data.success
   },
 
-  async updatePassword() {
-    // newPassword
+  async updatePassword(new_pass) {
+    let resp = await axios.post('/updatePassword', { password: new_pass });
+    if (resp.data.success) {
+      store.state.user.password = new_pass
+    }
 
+    return resp.data.success
   },
 
-  async addMoney() {
+  async addMoney(amount) {
+    let resp = await axios.post('/addMoney', { money: amount });
+    if (resp.data.success) {
+      store.state.user.money += amount
+    }
 
+    return resp.data.success
   },
 
   // Login
   async login(data) {
-    return axios.post('/login', data)
-      .then(resp => {
+    let resp = await axios.post('/login', data)
 
-        // Update the store (storage)
-        store.state.user = resp.data.account;
-        store.state.accountID = resp.data.accountID
-        store.state.loggedIn = true
-        console.log("Logged In", store.state);
+    if (resp.data.success) {
 
-        // Redirect
-        router.push({
-           name: "Home" })
+      // Update the store (storage)
+      store.state.user = resp.data.account;
+      store.state.accountID = resp.data.accountID
+      store.state.loggedIn = true
 
-        return resp.data;
+      // Redirect
+      router.push({ name: "Home" })
+    }
 
-      })
-      .catch(error => error.response.data)
+    // The `resp.data` object will always be the 
+    //  {} returned by the backend
+    return resp.data;
     
   },
 
   async logout() {  
-    if (confirm("Are you sure you want to log out?")) {
+    let confirmed = confirm("Are you sure you want to log out?");
+
+    if (confirmed) {
       
       // Update the store (storage)
       store.state.user = {};
       store.state.accountID = null;
       store.state.loggedIn = false;
-      console.log("Logged In", store.state);
 
       // Redirect
       router.push({ name: "Login" });
 
-      return true;
-
-    } else {
-
-      return false;
     }
+
+    return confirmed
   },
 }
 

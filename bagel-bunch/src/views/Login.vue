@@ -13,13 +13,13 @@
   </div>
 
   <div class="form-group">
-    <label for="inputPassword1">Password</label>
-    <input v-model="form.password" type="password" class="form-control" id="inputPassword1" placeholder="Password">
+    <label for="inputPassword">Password</label>
+    <input v-model="form.password" type="password" class="form-control" id="inputPassword" placeholder="Password">
   </div>
 
   <div class="m-5">
     <button @click="submitLogin" type="submit" 
-      :class="['btn', `btn-${$store.state.site.mainColor}`, 'm-1', 'col-5']">
+      :class="['col-5', 'btn', `btn-${$store.state.site.mainColor}`]">
       Login
     </button>
   </div>

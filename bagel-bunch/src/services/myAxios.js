@@ -28,6 +28,10 @@ myAxios.interceptors.request.use(config => {
 
 }, error => Promise.reject(error));
 
+myAxios.interceptors.response.use(
+  config => config,
+  error =>  error.response
+);
 
 Vue.prototype.$http = myAxios
 export default myAxios;
