@@ -21,10 +21,6 @@ const functions = {
 
   },
 
-  async getAccountID() {
-
-  },
-
   async updateName() {
     // newName
 
@@ -39,48 +35,45 @@ const functions = {
 
   },
 
-  // I want to move this function to the store
-  //  Maybe all of these can get moved there but whatever
-  login(data) {
-    console.log(data)
-    // axios.post('/posts', {"asdf": "asdf" } )
-    axios.post('/bagel/login', {"email": "wdashner11@gmail.com", "password":"different_password"})
-    .then(data => {
-      console.log(data)
-    })
-    .catch(error => {
-      console.log(error)
-    })
+  // Login
+  async login(data) {
+    return axios.post('/login', data)
+      .then(resp => {
 
+        // Update the store (storage)
+        store.state.user = resp.data.account;
+        store.state.accountID = resp.data.accountID
+        store.state.loggedIn = true
+        console.log("Logged In", store.state);
 
-    // Http({ method: 'post', url: '/login', data: { email: "asdf", password:"asdf" } } )
-    // Http.post('https://us-central1-bagelbunch-b5e21.cloudfunctions.net/login', { email: "asdf", password:"asdf" }, {
-    //   headers: {
-    //        'content-type': 'application/json',
-    //   }
-    // })
-    // .then(resp => console.log(resp))
-    // .catch(error => console.log(error))
+        // Redirect
+        router.push({
+           name: "Home" })
+
+        return resp.data;
+
+      })
+      .catch(error => error.response.data)
     
-    // fetch('https://us-central1-bagelbunch-b5e21.cloudfunctions.net/login', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({"email": "wdashner11@gmail.com", "password":"different_password"}),
-    // })
-    // .then((res) => res.json())
-    // .then((data) => console.log('asdf', data))
-    // .catch(error => console.log('hello', error))
-
-    // store.state.loggedIn = true;
-    // router.push({ name: "Home" })
   },
 
   async logout() {  
     if (confirm("Are you sure you want to log out?")) {
+      
+      // Update the store (storage)
+      store.state.user = {};
+      store.state.accountID = null;
       store.state.loggedIn = false;
+      console.log("Logged In", store.state);
+
+      // Redirect
       router.push({ name: "Login" });
-      // store.state.user = null;
-      // store.state.accountID = undefined;
+
+      return true;
+
+    } else {
+
+      return false;
     }
   },
 }

@@ -5,19 +5,19 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    site: {
-      compName: "BagelBunch",
-      mainColor: "dark",
-      accentColor: "primary" // not used anywhere yet
-    },
 
     loggedIn: false,
 
-    user: {
-      name: null,
-      email: null,
-      accountID: 124665
-    }
+    accountID: null,
+
+    user: {},
+
+    site: {
+      compName: "BagelBunch",
+      mainColor: "dark",
+      accentColor: "primary", // not used anywhere yet
+    },
+
   },
   getters: {
     user(state) {
