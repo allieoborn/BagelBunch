@@ -254,7 +254,8 @@ export const login = functions.https.onRequest(async (request, response) => {
     }
     const accounts = await admin.firestore().collection('accounts').where('email', '==', email).get();
     if (accounts.docs.length === 0) {
-        response.status(400).json({success: false, error: 'no account found with that email'})
+        response.status(400).json({success: false, error: 'no account found with that email'});
+        return;
     }
     const account = accounts.docs[0];
     if (account.data().password !== password) {
