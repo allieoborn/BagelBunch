@@ -13,25 +13,33 @@ const routes = [
     set requiresAuth to True and it will not 
     display unless logged in.
   */
-  { 
-    path: "/", name: "Home", component: () => import("../views/Home.vue"), 
-    meta: { 
+  {
+    path: "/", name: "Home", component: () => import("../views/Home.vue"),
+    meta: {
       requiresAuth: true,
       drawer: true,
       icon: "mdi-home"
     }
   },
-  { 
-    path: "/profile", name: "Profile", component: () => import("../views/Profile.vue"), 
-    meta: { 
+  {
+    path: "/profile", name: "Profile", component: () => import("../views/Profile.vue"),
+    meta: {
       requiresAuth: true,
       drawer: true,
       icon: "mdi-account"
     }
   },
-  { 
+  {
     path: "/login", name: "Login", component: () => import("../views/Login.vue"),
-    meta: { 
+    meta: {
+      requiresAuth: false,
+      drawer: false,
+      icon: 'mdi-arrow-up'
+    }
+  },
+  {
+    path: "/createAccount", name: "CreateAccount", component: () => import("../views/CreateAccount.vue"),
+    meta: {
       requiresAuth: false,
       drawer: false,
       icon: 'mdi-arrow-up'
@@ -59,7 +67,7 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else {
-    next(); 
+    next();
   }
 });
 

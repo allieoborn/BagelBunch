@@ -27,6 +27,7 @@ const functions = {
         favorite: null,
     */
     let resp = await axios.post('/createAccount', data);
+    console.log(resp);
     return resp.data.success
   },
 
@@ -81,14 +82,14 @@ const functions = {
     // The `resp.data` object will always be the 
     //  {} returned by the backend
     return resp.data;
-    
+
   },
 
-  async logout() {  
+  async logout() {
     let confirmed = confirm("Are you sure you want to log out?");
 
     if (confirmed) {
-      
+
       // Update the store (storage)
       store.state.user = {};
       store.state.accountID = null;
