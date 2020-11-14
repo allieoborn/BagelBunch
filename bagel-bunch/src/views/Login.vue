@@ -44,7 +44,7 @@ export default {
       this.$func.login(this.form)
       .then(resp => {
         if ( !resp.success ) {
-          this.error = resp.error
+          this.error = resp.error;
         }
       })
 
