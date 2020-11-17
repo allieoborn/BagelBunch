@@ -22,6 +22,7 @@
     <div class="form-group">
       <label for="inputPassword">Password</label>
       <input
+        @keyup.enter="submitLogin"
         v-model="form.password"
         type="password"
         class="form-control"
