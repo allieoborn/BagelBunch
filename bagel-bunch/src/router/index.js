@@ -18,6 +18,7 @@ const routes = [
     meta: {
       requiresAuth: true,
       drawer: true,
+      requiredTypes: [],
       icon: "mdi-home"
     }
   },
@@ -26,6 +27,7 @@ const routes = [
     meta: {
       requiresAuth: true,
       drawer: true,
+      requiredTypes: [],
       icon: "mdi-account"
     }
   },
@@ -34,6 +36,7 @@ const routes = [
     meta: {
       requiresAuth: false,
       drawer: false,
+      requiredTypes: [],
       icon: 'mdi-arrow-up'
     }
   },
@@ -42,7 +45,17 @@ const routes = [
     meta: {
       requiresAuth: false,
       drawer: false,
+      requiredTypes: [],
       icon: 'mdi-arrow-up'
+    }
+  },
+  {
+    path: "/admin", name: "Admin", component: () => import("../views/Admin.vue"),
+    meta: {
+      requiresAuth: true,
+      drawer: true,
+      requiredTypes: ['manager'],
+      icon: "mdi-account-key"
     }
   },
 ];

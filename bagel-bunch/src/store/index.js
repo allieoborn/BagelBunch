@@ -10,7 +10,9 @@ export default new Vuex.Store({
 
     accountID: null,
 
-    user: {},
+    user: {
+      type:null
+    },
 
     site: {
       compName: "BagelBunch",
