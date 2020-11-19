@@ -60,7 +60,6 @@ const functions = {
     if (resp.data.success) {
       store.state.user.money += amount
     }
-
     return resp.data.success
   },
 
