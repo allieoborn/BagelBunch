@@ -1,76 +1,72 @@
 <template>
 <v-container>
-    <div v-if="!this.editing"> 
+    <div> 
         <fieldset class="border-bottom form-group">
         <legend>
         <h2>Profile</h2>
         </legend>
         </fieldset>
-        <h5 class="spacing"> Name: {{ this.account.name }}</h5>
-        <h5 class="spacing"> E-mail: {{ this.account.email }}</h5>
-        <h5 class="spacing"> Password: ******** </h5>
-        <h5 class="spacing"> Balance: {{ this.account.money }}</h5>
-        <h5 class="spacing"> Favorite Menu Item: {{ this.account.favorite }}</h5>
-        <h5 class="spacing"> Previous Orders: {{ this.account.orders }}</h5>
+
+        <div class="row">
+            <h5 class="spacing">Name:</h5> 
+            <h5 v-if="!this.editing">{{ this.account.name }}</h5>
+            <input
+            v-else
+                v-model="form.name"
+                type="text"
+                class="form-control"
+                id="inputName"
+                placeholder="New Name"
+            />
+        </div>
+        <div class="row">
+            <h5 class="spacing">E-mail:</h5> 
+            <h5>{{ this.account.email }}</h5>
+        </div>
+        <div class="row">
+            <h5 class="spacing">Password:</h5> 
+            <h5 v-if="!this.editing">********</h5>
+            <input
+            v-else
+                    v-model="form.password"
+                    type="password"
+                    class="form-control"
+                    id="inputPassword"
+                    placeholder="New Password"
+                    />
+        </div>
+        <div class="row">
+            <h5 class="spacing">Balance:</h5> 
+            <h5 v-if="!this.editing">{{ this.account.money }}</h5>
+            <input
+            v-else
+                    v-model="form.balance"
+                    type="text"
+                    class="form-control"
+                    id="inputBalance"
+                    placeholder="Amount to Add"
+                />
+        </div>
+        <div class="row">
+            <h5 class="spacing">Favorite Menu Item:</h5> 
+            <h5>{{ this.account.favorite }}</h5>
+        </div>
+        <div class="row">
+            <h5 class="spacing">Previous Orders:</h5> 
+            <!-- <h5>{{ this.account.orders }}</h5> -->
+        </div>
+
         <div class="m-5">
             <button
+            v-if="!this.editing"
             @click="editInfo"
             type="edit"
             :class="['col-5', 'btn', `btn-${$store.state.site.mainColor}`]"
             >
             Edit Info
             </button>
-        </div>
-    </div>
-    <div v-else>
-        <fieldset class="border-bottom form-group">
-        <legend>
-          <h2>Edit Account Info</h2>
-        </legend>
-        </fieldset>
-        <div class="content-section container">
-            <div class="form-group">
-            <label for="inputName">Name</label>
-            <input
-                v-model="form.name"
-                type="text"
-                class="form-control"
-                id="inputName"
-                placeholder= "Name"
-            />
-            </div>
-            <div class="form-group">
-                <label for="inputPassword">Password</label>
-                <input
-                    v-model="form.password"
-                    type="password"
-                    class="form-control"
-                    id="inputPassword"
-                    placeholder="********"
-                    />
-            </div>
-            <div class="form-group">
-                <label for="inputBalance">Balance</label>
-                <input
-                    v-model="form.balance"
-                    type="text"
-                    class="form-control"
-                    id="inputBalance"
-                    placeholder="100"
-                />
-            </div>
-            <div class="form-group">
-                <label for="inputEmail1">Email address</label>
-                <input
-                    v-model="form.email"
-                    type="email"
-                    class="form-control"
-                    id="inputEmail1"
-                    placeholder="email"
-                />
-            </div>
-            <div class="m-5">
             <button
+            v-else
             @click="saveInfo"
             type="edit"
             :class="['col-5', 'btn', `btn-${$store.state.site.mainColor}`]"
@@ -78,9 +74,7 @@
             Save Info
             </button>
         </div>
-        </div>
     </div>
-
 </v-container>
 
 </template>
@@ -103,19 +97,10 @@ export default {
         editInfo() {
             this.editing = true;
         },
-        updateName() {
-            this.$func.updateName(this.form).then((resp) => {
-                console.log(`response ${resp}`);
-                
-            });
-        },
-        updatePassword() {
-            this.$func.updatePassword()
-        },
-        addMoney() {
-            this.$func.addMoney()
-        },
         saveInfo() {
+            this.$func.updateName(this.form.name)
+            this.$func.updatePassword(this.form.password);
+            this.$func.addMoney(parseInt(this.form.balance, 10));
             this.editing = false;
         },
     },
@@ -125,5 +110,13 @@ export default {
 <style>
 .spacing {
   padding: 7px;
+  display: inline;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
 }
 </style>

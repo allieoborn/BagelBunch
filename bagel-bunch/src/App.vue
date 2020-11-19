@@ -108,7 +108,11 @@ export default {
     })
   },
   created() {
-    this.$func.login( { email: "mcmullinboy15@gmail.com", password: "asdf" } )
+    this.$func.getMenu();
+
+    this.$func.login( { email: "manager@bb.com", password: "asdf" } );
+
+    this.$router.push({ name: "admin-menu" })
   }
 };
 </script>

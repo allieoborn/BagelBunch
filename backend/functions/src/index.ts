@@ -18,19 +18,7 @@ export const helloWorld = functions.https.onRequest((request, response) => {
 });
 
 export const createAccount = functions.https.onRequest(async (request, response) => {
-    response.set('Access-Control-Allow-Origin', '*');
-    if (request.method === 'OPTIONS') {
-        response.set('Access-Control-Allow-Methods', 'POST');
-        response.set('Access-Control-Allow-Headers', 'Content-Type');
-        response.status(204).send('');
-        return;
-    }
-    if (request.method !== 'POST') {
-        response.status(400).json({success: false, error: 'POST requests only'});
-        return;
-    }
-    if (request.header('Content-Type') !== 'application/json') {
-        response.status(400).json({success: false, error: 'Content-Type header must be application/json'});
+    if (!(await functionWrapper(request, response))) {
         return;
     }
     const name = request.body.name;
@@ -64,7 +52,7 @@ export const createAccount = functions.https.onRequest(async (request, response)
     }
     let money = request.body.money;
     if (!money) {
-        money = 0;
+        money = 100;
     }
     const favorite = request.body.favorite;
     await firebaseHelper.firestore.createNewDocument(db, 'accounts', {
@@ -80,51 +68,8 @@ export const createAccount = functions.https.onRequest(async (request, response)
     return;
 });
 
-// export const getAccountID = functions.https.onRequest(async (request, response) => {
-//     response.set('Access-Control-Allow-Origin', '*');
-//         if (request.method === 'OPTIONS') {
-//             response.set('Access-Control-Allow-Methods', 'POST');
-//             response.set('Access-Control-Allow-Headers', 'Content-Type');
-//             response.status(204).send('');
-//             return;
-//         }
-//     if (request.method !== 'POST') {
-//         response.status(400).json({error: 'POST requests only'});
-//         return;
-//     }
-//     if (request.header('Content-Type') !== 'application/json') {
-//         response.status(400).json({error: 'Content-Type header must be application/json'});
-//         return;
-//     }
-//     const email = request.body.email;
-//     if (!email) {
-//         response.status(400).json({success: false, error: 'email argument required'});
-//         return;
-//     }
-//     const accounts = await admin.firestore().collection('accounts').where('email', '==', email).get();
-//     if (accounts.docs.length === 0) {
-//         response.status(400).json({success: false, error: `no account with that email (${email}) was found`});
-//         return;
-//     }
-//     const id = accounts.docs[0].id;
-//     response.status(200).json({success: true, id: id});
-//     return;
-// });
-
 export const updateName = functions.https.onRequest(async (request, response) => {
-    response.set('Access-Control-Allow-Origin', '*');
-    if (request.method === 'OPTIONS') {
-        response.set('Access-Control-Allow-Methods', 'POST');
-        response.set('Access-Control-Allow-Headers', 'Content-Type');
-        response.status(204).send('');
-        return;
-    }
-    if (request.method !== 'POST') {
-        response.status(400).json({error: 'POST requests only'});
-        return;
-    }
-    if (request.header('Content-Type') !== 'application/json') {
-        response.status(400).json({error: 'Content-Type header must be application/json'});
+    if (!(await functionWrapper(request, response))) {
         return;
     }
     const accountID = request.body.accountID;
@@ -149,19 +94,7 @@ export const updateName = functions.https.onRequest(async (request, response) =>
 });
 
 export const updatePassword = functions.https.onRequest(async (request, response) => {
-    response.set('Access-Control-Allow-Origin', '*');
-    if (request.method === 'OPTIONS') {
-        response.set('Access-Control-Allow-Methods', 'POST');
-        response.set('Access-Control-Allow-Headers', 'Content-Type');
-        response.status(204).send('');
-        return;
-    }
-    if (request.method !== 'POST') {
-        response.status(400).json({error: 'POST requests only'});
-        return;
-    }
-    if (request.header('Content-Type') !== 'application/json') {
-        response.status(400).json({error: 'Content-Type header must be application/json'});
+    if (!(await functionWrapper(request, response))) {
         return;
     }
     const accountID = request.body.accountID;
@@ -186,19 +119,7 @@ export const updatePassword = functions.https.onRequest(async (request, response
 });
 
 export const addMoney = functions.https.onRequest(async (request, response) => {
-    response.set('Access-Control-Allow-Origin', '*');
-    if (request.method === 'OPTIONS') {
-        response.set('Access-Control-Allow-Methods', 'POST');
-        response.set('Access-Control-Allow-Headers', 'Content-Type');
-        response.status(204).send('');
-        return;
-    }
-    if (request.method !== 'POST') {
-        response.status(400).json({error: 'POST requests only'});
-        return;
-    }
-    if (request.header('Content-Type') !== 'application/json') {
-        response.status(400).json({error: 'Content-Type header must be application/json'});
+    if (!(await functionWrapper(request, response))) {
         return;
     }
     const accountID = request.body.accountID;
@@ -227,19 +148,7 @@ export const addMoney = functions.https.onRequest(async (request, response) => {
 });
 
 export const login = functions.https.onRequest(async (request, response) => {
-    response.set('Access-Control-Allow-Origin', '*');
-    if (request.method === 'OPTIONS') {
-        response.set('Access-Control-Allow-Methods', 'POST');
-        response.set('Access-Control-Allow-Headers', 'Content-Type');
-        response.status(204).send('');
-        return;
-    }
-    if (request.method !== 'POST') {
-        response.status(400).json({error: 'POST requests only'});
-        return;
-    }
-    if (request.header('Content-Type') !== 'application/json') {
-        response.status(400).json({error: 'Content-Type header must be application/json'});
+    if (!(await functionWrapper(request, response))) {
         return;
     }
     const email = request.body.email;
@@ -265,3 +174,22 @@ export const login = functions.https.onRequest(async (request, response) => {
     response.status(200).json({success: true, account: account.data(), accountID: account.id});
     return;
 });
+
+const functionWrapper = async function (request: any, response: any) {
+    response.set('Access-Control-Allow-Origin', '*');
+    if (request.method === 'OPTIONS') {
+        response.set('Access-Control-Allow-Methods', 'POST');
+        response.set('Access-Control-Allow-Headers', 'Content-Type');
+        response.status(204).send('');
+        return false;
+    }
+    if (request.method !== 'POST') {
+        response.status(400).json({success: false, error: 'POST requests only'});
+        return false;
+    }
+    if (request.header('Content-Type') !== 'application/json') {
+        response.status(400).json({success: false, error: 'Content-Type header must be application/json'});
+        return false;
+    }
+    return true;
+};

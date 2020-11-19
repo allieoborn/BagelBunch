@@ -19,7 +19,7 @@ const functions = {
     let resp = await axios.post('/getMenu')
     
     if (resp.data.success) {
-      store.state.menu = resp.data;
+      store.state.menu = resp.data.menu;
     }
 
     return resp.data;

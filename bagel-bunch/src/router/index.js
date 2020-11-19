@@ -50,12 +50,21 @@ const routes = [
     }
   },
   {
-    path: "/admin", name: "Admin", component: () => import("../views/Admin.vue"),
+    path: "/admin-menu", name: "admin-menu", component: () => import("../views/AdminMenu.vue"),
     meta: {
       requiresAuth: true,
       drawer: true,
       requiredTypes: ['manager'],
-      icon: "mdi-account-key"
+      icon: "mdi-shield-edit"
+    }
+  },
+  {
+    path: "/newEmployee", name: "Create New", component: () => import("../views/NewEmployee.vue"),
+    meta: {
+      requiresAuth: true,
+      drawer: true,
+      requiredTypes: ['manager'],
+      icon: "mdi-shield-plus"
     }
   },
 ];

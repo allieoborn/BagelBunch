@@ -15,6 +15,7 @@ export default new Vuex.Store({
     },
 
     store: {},
+    menu: null,
 
     site: {
       compName: "BagelBunch",
@@ -29,6 +30,9 @@ export default new Vuex.Store({
     },
     site(state) {
       return state.site;
+    },
+    menu(state) {
+      return state.menu;
     }
   },
   mutations: {},

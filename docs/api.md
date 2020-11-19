@@ -17,7 +17,7 @@
     * email: str
     * password: str
     * type: str (customer, chef, cashier, manager)
-    * money: Optional[float] (defaults to 0)
+    * money: Optional[float] (defaults to 100)
     * favorite: Optional[str] (defaults to None)
 * Response
     * success: bool
