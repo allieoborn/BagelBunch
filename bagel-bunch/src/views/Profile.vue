@@ -16,7 +16,7 @@
                 type="text"
                 class="form-control"
                 id="inputName"
-                placeholder= "New Name"
+                placeholder="New Name"
             />
         </div>
         <div class="row">
@@ -44,7 +44,7 @@
                     type="text"
                     class="form-control"
                     id="inputBalance"
-                    placeholder="New Balance"
+                    placeholder="Amount to Add"
                 />
         </div>
         <div class="row">
@@ -53,7 +53,7 @@
         </div>
         <div class="row">
             <h5 class="spacing">Previous Orders:</h5> 
-            <h5>{{ this.account.orders }}</h5>
+            <!-- <h5>{{ this.account.orders }}</h5> -->
         </div>
 
         <div class="m-5">

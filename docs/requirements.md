@@ -59,7 +59,7 @@ I would think text message would be the most convenient for the customer),
 (would like to have 100 of everything in inventory)
 27. Mark individual inventory items as restocked ,
 (Could also include an option for marking the whole store as restocked rather than just individual items)
-28. Approve Cashier/Chef accounts,
+28. Create Cashier or Chef accounts,
 29. Add/Remove menu items.
 
 #### 5. Future Features
