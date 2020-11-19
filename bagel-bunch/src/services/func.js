@@ -15,8 +15,23 @@ import axios from "./myAxios";
 
 const functions = {
 
+  async getMenu() {
+    let resp = await axios.post('/getMenu')
+    
+    if (resp.data.success) {
+      store.state.menu = resp.data;
+    }
+
+    return resp.data;
+  },
+
+  async updateMenu() {
+    let resp = await axios.post('/updateMenu', store.state.menu);
+    return resp.data.success;
+  },
+
   async createAccount(data) {
-    console.log("Creating Your New Account: ", data)
+    console.log("Creating Your New Account: ", data);
     /* Example:
       data = {
         name: "", 
@@ -28,7 +43,7 @@ const functions = {
     */
     let resp = await axios.post('/createAccount', data);
     console.log(resp);
-    return resp.data.success
+    return resp.data.success;
   },
 
   /* For the next 3:    <Andrew>
@@ -40,43 +55,43 @@ const functions = {
   async updateName(new_name) {
     let resp = await axios.post('/updateName', { name: new_name });
     if (resp.data.success) {
-      store.state.user.name = new_name
+      store.state.user.name = new_name;
     }
 
-    return resp.data.success
+    return resp.data.success;
   },
 
   async updatePassword(new_pass) {
     let resp = await axios.post('/updatePassword', { password: new_pass });
     if (resp.data.success) {
-      store.state.user.password = new_pass
+      store.state.user.password = new_pass;
     }
 
-    return resp.data.success
+    return resp.data.success;
   },
 
   async addMoney(amount) {
     let resp = await axios.post('/addMoney', { money: amount });
     if (resp.data.success) {
-      store.state.user.money += amount
+      store.state.user.money += amount;
     }
 
-    return resp.data.success
+    return resp.data.success;
   },
 
   // Login
   async login(data) {
-    let resp = await axios.post('/login', data)
+    let resp = await axios.post('/login', data);
 
     if (resp.data.success) {
 
       // Update the store (storage)
       store.state.user = resp.data.account;
-      store.state.accountID = resp.data.accountID
-      store.state.loggedIn = true
+      store.state.accountID = resp.data.accountID;
+      store.state.loggedIn = true;
 
       // Redirect
-      router.push({ name: "Home" })
+      router.push({ name: "Home" });
     }
 
     // The `resp.data` object will always be the 
@@ -100,7 +115,7 @@ const functions = {
 
     }
 
-    return confirmed
+    return confirmed;
   },
 }
 

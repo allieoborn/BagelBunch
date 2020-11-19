@@ -14,6 +14,8 @@ export default new Vuex.Store({
       type:null
     },
 
+    store: {},
+
     site: {
       compName: "BagelBunch",
       mainColor: "dark",
