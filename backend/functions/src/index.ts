@@ -175,6 +175,29 @@ export const login = functions.https.onRequest(async (request, response) => {
     return;
 });
 
+export const getMenu = functions.https.onRequest(async (request, response) => {
+    if (!(await functionWrapper(request, response))) {
+        return;
+    }
+    const menu = await firebaseHelper.firestore.getDocument(db, 'menus', 'menu');
+    response.status(200).json({success: true, menu: menu});
+    return;
+});
+
+export const updateMenu = functions.https.onRequest(async (request, response) => {
+    if (!(await functionWrapper(request, response))) {
+        return;
+    }
+    const menu = request.body.menu;
+    if (!menu) {
+        response.status(400).json({success: false, error: 'menu argument required'});
+        return;
+    }
+    await firebaseHelper.firestore.updateDocument(db, 'menus', 'menu', menu);
+    response.status(200).json({success: true});
+    return;
+});
+
 const functionWrapper = async function (request: any, response: any) {
     response.set('Access-Control-Allow-Origin', '*');
     if (request.method === 'OPTIONS') {

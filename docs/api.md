@@ -64,3 +64,17 @@
     * account: Account
     * accountID: str
     * error: Optional[str]
+
+### POST /getMenu
+* Request
+* Response
+    * success: bool
+    * menu: Menu
+    * error: Optional[str]
+
+### POST /updateMenu
+* Request
+    * menu: Menu
+* Response
+    * success: bool
+    * error: Optional[str]
