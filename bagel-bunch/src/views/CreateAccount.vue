@@ -68,6 +68,7 @@ export default {
         email: "",
         password: "",
         type: "customer",
+        money: 100,
       },
       created: false,
     };
