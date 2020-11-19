@@ -1,25 +1,49 @@
 <template>
-<div class="content-section container">
-  <fieldset class="border-bottom form-group m-5">
-    <legend><h2>Welcome to {{ $store.state.site.compName }}</h2></legend>
-  </fieldset>
+  <div class="content-section container">
+    <fieldset class="border-bottom form-group">
+      <legend>
+        <h2>Welcome to {{ $store.state.site.compName }}</h2>
+      </legend>
+    </fieldset>
 
-  <div v-if="error" class="alert alert-danger">{{ error }}</div>
+    <div v-if="error" class="alert alert-danger">{{ error }}</div>
 
-  <div>
     <div class="form-group">
       <label for="inputEmail1">Email address</label>
-      <input v-model="form.email" type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      <input
+        v-model="form.email"
+        type="email"
+        class="form-control"
+        id="inputEmail1"
+        placeholder="Enter email"
+      />
     </div>
+
     <div class="form-group">
-      <label for="inputPassword1">Password</label>
-      <input v-model="form.password" type="password" class="form-control" id="inputPassword1" placeholder="Password">
+      <label for="inputPassword">Password</label>
+      <input
+        v-model="form.password"
+        type="password"
+        class="form-control"
+        id="inputPassword"
+        placeholder="Password"
+      />
     </div>
+
     <div class="m-5">
-      <button @click="submitLogin" type="submit" :class="['btn', `btn-${$store.state.site.mainColor}`, 'm-1', 'col-5']">Login</button>
+      <button
+        @click="submitLogin"
+        type="submit"
+        :class="['col-5', 'btn', `btn-${$store.state.site.mainColor}`]"
+      >
+        Login
+      </button>
+    </div>
+
+    <div class="m-5">
+      <router-link to="/createAccount">Create Account</router-link>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -29,43 +53,32 @@ export default {
     return {
       form: {
         email: "",
-        password: ""
+        password: "",
       },
       error: null,
     };
   },
   methods: {
-    async submitLogin() {
-      const rawResponse = await fetch('https://us-central1-bagelbunch-b5e21.cloudfunctions.net/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({email: 'wdashner11@gmail.com', password: 'different_password'})
+    submitLogin() {
+      this.$func.login(this.form).then((resp) => {
+        if (!resp.success) {
+          this.error = resp.error;
+        }
       });
-
-      const content = await rawResponse.json();
-      console.log(content);
+    },
+    createAccount() {
+      console.log("Create Account button working");
     },
   },
-  created() {
-    this.$func.login(this.form);
-    // console.log(resp);
-    // console.log(resp.data);
-  }
 };
 </script>
 
 <style>
 .content-section {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  padding-top: 5rem;
-
+  margin-top: 5rem;
+  padding: 0px 10%;
   min-height: 45rem;
-
-  padding: 0px 200px;
+  min-width: 500px;
 }
 </style>

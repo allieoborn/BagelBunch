@@ -17,70 +17,90 @@ const functions = {
 
   async createAccount(data) {
     console.log("Creating Your New Account: ", data)
-    // name, email, password, type: ('customer', 'chef', 'cashier', 'manager'), money, favorite,
-
+    /* Example:
+      data = {
+        name: "", 
+        email: "", 
+        password: "", 
+        type: ('customer', 'chef', 'cashier', 'manager'),
+        money: 0, 
+        favorite: null,
+    */
+    let resp = await axios.post('/createAccount', data);
+    console.log(resp);
+    return resp.data.success
   },
 
-  async getAccountID() {
-
-  },
-
-  async updateName() {
-    // newName
-
-  },
-
-  async updatePassword() {
-    // newPassword
-
-  },
-
-  async addMoney() {
-
-  },
-
-  // I want to move this function to the store
-  //  Maybe all of these can get moved there but whatever
-  login(data) {
-    console.log(data)
-    axios.post('/bagel/login', {"email": "wdashner11@gmail.com", "password":"different_password"})
-    .then(data => {
-      console.log(data)
-    })
-    .catch(error => {
-      console.log(error)
-    })
-
-
-    // Http({ method: 'post', url: '/login', data: { email: "asdf", password:"asdf" } } )
-    // Http.post('https://us-central1-bagelbunch-b5e21.cloudfunctions.net/login', { email: "asdf", password:"asdf" }, {
-    //   headers: {
-    //        'content-type': 'application/json',
-    //   }
-    // })
-    // .then(resp => console.log(resp))
-    // .catch(error => console.log(error))
-    
-    // fetch('https://us-central1-bagelbunch-b5e21.cloudfunctions.net/login', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({"email": "wdashner11@gmail.com", "password":"different_password"}),
-    // })
-    // .then((res) => res.json())
-    // .then((data) => console.log('asdf', data))
-    // .catch(error => console.log('hello', error))
-
-    // store.state.loggedIn = true;
-    // router.push({ name: "Home" })
-  },
-
-  async logout() {  
-    if (confirm("Are you sure you want to log out?")) {
-      store.state.loggedIn = false;
-      router.push({ name: "Login" });
-      // store.state.user = null;
-      // store.state.accountID = undefined;
+  /* For the next 3:    <Andrew>
+    Another Better option that I won't do rn cuz I 
+    need to sleep is just v-model all the data <input/>
+    tags to the $store and then here we just need to 
+    Grab it always from there instead of passing a param.
+  */
+  async updateName(new_name) {
+    let resp = await axios.post('/updateName', { name: new_name });
+    if (resp.data.success) {
+      store.state.user.name = new_name
     }
+
+    return resp.data.success
+  },
+
+  async updatePassword(new_pass) {
+    let resp = await axios.post('/updatePassword', { password: new_pass });
+    if (resp.data.success) {
+      store.state.user.password = new_pass
+    }
+
+    return resp.data.success
+  },
+
+  async addMoney(amount) {
+    let resp = await axios.post('/addMoney', { money: amount });
+    if (resp.data.success) {
+      store.state.user.money += amount
+    }
+
+    return resp.data.success
+  },
+
+  // Login
+  async login(data) {
+    let resp = await axios.post('/login', data)
+
+    if (resp.data.success) {
+
+      // Update the store (storage)
+      store.state.user = resp.data.account;
+      store.state.accountID = resp.data.accountID
+      store.state.loggedIn = true
+
+      // Redirect
+      router.push({ name: "Home" })
+    }
+
+    // The `resp.data` object will always be the 
+    //  {} returned by the backend
+    return resp.data;
+
+  },
+
+  async logout() {
+    let confirmed = confirm("Are you sure you want to log out?");
+
+    if (confirmed) {
+
+      // Update the store (storage)
+      store.state.user = {};
+      store.state.accountID = null;
+      store.state.loggedIn = false;
+
+      // Redirect
+      router.push({ name: "Login" });
+
+    }
+
+    return confirmed
   },
 }
 

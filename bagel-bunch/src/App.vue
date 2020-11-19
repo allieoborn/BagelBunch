@@ -57,7 +57,7 @@
     </v-navigation-drawer>
 
     <!-- Main -->
-    <v-main>
+    <v-main class="mt-5">
       <router-view></router-view>
     </v-main>
   </v-app>

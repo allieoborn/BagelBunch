@@ -2,43 +2,36 @@ import Vue from 'vue';
 import axios from "axios";
 import store from '../store';
 
+// Creating our own Axios
 const myAxios = axios.create({
-  // baseURL: process.env.NODE_ENV === 'production' ? 'https://us-central1-bagelbunch-b5e21.cloudfunctions.net' : 'http://localhost:8080',
-  // baseURL: 'http://us-central1-bagelbunch-b5e21.cloudfunctions.net',
-  // baseURL: 'https://jsonplaceholder.typicode.com/',
-  baseURL: 'https://us-central1-ezsalt-iot-dev-env.cloudfunctions.net',
-
+  baseURL: 'http://us-central1-bagelbunch-b5e21.cloudfunctions.net',
   headers: { 
     "Content-Type": "application/json",
-    // "Access-Control-Allow-Origin": "true"
    },
   responseType: "json"
 });
 
-// This is just so the accountID and email 
-//  is sent on every request if we used this axios
+// This is just so the accountID is sent on every request
+//  If is run before every Request, there is one for Responses
 myAxios.interceptors.request.use(config => {
-  console.log('config: ', config)
-  console.log('config.data: ', config.data)
 
   if (config.data === undefined) {
     config.data = {};
   }
 
-  const accountID = store.state.user.accountID;
+  const accountID = store.state.accountID;
   if (accountID !== undefined) {
     config.data['accountID'] = accountID;
   }
 
-  return config;
-}, function (error) {
-  console.log('interceptors.request Error: ', error)
-  return Promise.reject(error);
-});
+  return config
 
-myAxios.interceptors.response.use(response => {
-  return response;
 }, error => Promise.reject(error));
+
+myAxios.interceptors.response.use(
+  config => config,
+  error =>  error.response
+);
 
 Vue.prototype.$http = myAxios
 export default myAxios;
