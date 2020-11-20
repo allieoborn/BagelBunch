@@ -67,6 +67,24 @@ const routes = [
       icon: "mdi-shield-plus"
     }
   },
+  {
+    path: "/chef-view", name: "chef-view", component: () => import("../views/Chef.vue"),
+    meta: {
+      requiresAuth: true,
+      drawer: true,
+      requiredTypes: ['manager', 'chef'],
+      icon: "mdi-chef-hat"
+    }
+  },
+  {
+    path: "/cashier-view", name: "cashier-view", component: () => import("../views/Cashier.vue"),
+    meta: {
+      requiresAuth: true,
+      drawer: true,
+      requiredTypes: ['manager', 'cashier'],
+      icon: "mdi-cash-check"
+    }
+  },
 ];
 
 const router = new VueRouter({

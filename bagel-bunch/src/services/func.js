@@ -142,6 +142,10 @@ function routeLogin(account) {
     router.push({ name: "Order" });
   } else if (account.type === "manager") {
     router.push({ name: "admin-menu" });
+  } else if (account.type === "chef") {
+    router.push({ name: "chef-view" });
+  } else if (account.type === "cashier") {
+    router.push({ name: "cashier-view" });
   }
 }
 
