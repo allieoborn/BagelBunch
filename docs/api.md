@@ -88,3 +88,10 @@
 * Response
     * success: bool
     * error: Optional[str]
+
+### POST /getOrders
+* Request
+    * accountID: Optional[str]
+* Response
+    * success: bool
+    * orders: List[Order]
