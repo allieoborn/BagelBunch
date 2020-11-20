@@ -19,15 +19,32 @@ const functions = {
     let resp = await axios.post('/getMenu')
     
     if (resp.data.success) {
-      store.state.menu = resp.data.menu;
+      console.log("menu: ",  resp.data.menu.menu)
+      store.state.menu = resp.data.menu.menu;
     }
+
+    // let new_menu = []
+    // for (const [name, val] of Object.entries(store.state.menu)) {
+    //   for (const item of val) {
+
+    //     console.log({ type: name, ...item })
+
+    //     new_menu.push({ type: name, ...item })
+
+    //   }
+    //   // console.log(new_menu)
+    // }
+    // console.log( new_menu )
+    // store.state.menu2 = new_menu
+    // this.updateMenu()
 
     return resp.data;
   },
 
   async updateMenu() {
-    let resp = await axios.post('/updateMenu', store.state.menu);
-    return resp.data.success;
+    let resp = await axios.post('/updateMenu', { menu: { menu: store.state.menu } });
+    console.log(resp, resp.data)
+    return resp.data;
   },
 
   async createAccount(data) {

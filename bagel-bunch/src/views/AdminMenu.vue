@@ -1,43 +1,249 @@
 <template>
   <div v-if="menu" class="content-section container">
-    <div v-for="(val, name) in menu" :key="name" class="container card p-3 m-3">
-      <b-row>
-        <h3 class="col-3">{{ name.charAt(0).toUpperCase() + name.slice(1) }}</h3>
-        <div class="col-9 row">
-          <h6 class="col-4">Name:</h6><h6 class="col-4">Cost:</h6><h6 class="col-4">Amount:</h6>
-          <div v-for="item in val" :key="`${name}-${item.name}`" class="container card">
-            <div class="form-group">
-              <b-row class="px-1">
-                <b-form-input class="col-3 mx-2" type="text" v-model="item.name">{{item.name}}</b-form-input>
-                <b-form-input class="col-3 mx-2" type="number" v-model="item.cost"></b-form-input>
-                <b-form-input class="col-3 mx-2" type="number" v-model="item.amount"></b-form-input>
-              </b-row>
-            </div>
-          </div>
-        </div>
-      </b-row>
-    </div>
+
+  <!-- <h3>{{ name.charAt(0).toUpperCase() + name.slice(1) }}</h3> -->
+
+  <v-data-table
+    :headers="headers"
+    :items="menu"
+    :items-per-page="15"
+    sort-by="type"
+    class="elevation-1"
+    dense
+    filterable
+  >
+    <template v-slot:top>
+      <v-toolbar flat >
+        <v-toolbar-title>AdminMenu</v-toolbar-title>
+        <v-divider
+          class="mx-4"
+          inset
+          vertical
+        ></v-divider>
+        <v-spacer></v-spacer>
+        <v-dialog
+          v-model="dialog"
+          max-width="500px"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              color="primary"
+              dark
+              class="mb-2"
+              v-bind="attrs"
+              v-on="on"
+            >
+              New Item
+            </v-btn>
+            <v-btn
+              color="primary"
+              dark
+              class="mb-2"
+              v-bind="attrs"
+              v-on="on"
+            >
+              Send Updated Menu
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="headline">{{ formTitle }}</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.type"
+                      label="Type"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.name"
+                      label="Name"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.cost"
+                      label="Cost"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.amount"
+                      label="Amount"
+                    ></v-text-field>
+                  </v-col>
+
+                </v-row>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="close"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="save"
+              >
+                Save
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialogDelete" max-width="500px">
+          <v-card>
+            <v-card-title class="headline">Are you sure you want to delete this item?</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+    </template>
+    <template v-slot:item.actions="{ item }">
+      <v-icon
+        small
+        class="mr-2"
+        @click="editItem(item)"
+      >
+        mdi-pencil
+      </v-icon>
+      <v-icon
+        small
+        @click="deleteItem(item)"
+      >
+        mdi-delete
+      </v-icon>
+    </template>
+    <template v-slot:no-data>
+      <v-btn
+        color="primary"
+        @click="initialize"
+      >
+        Reset
+      </v-btn>
+    </template>
+  </v-data-table>
+
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-// AdminEditMenu
 
 export default {
-  name: "Admin", 
+  name: "AdminMenu", 
   data: () => ({
-    
+    dialog: false,
+    dialogDelete: false,
+    headers: [
+      { text: 'Type', value: 'type', align: 'start', sortable: false },
+      { text: 'Name', value: 'name' },
+      { text: 'Cost', value: 'cost' },
+      { text: 'Amount', value: 'amount' },
+      { text: 'Actions', value: 'actions', sortable: false },
+    ],
+    editedIndex: -1,
+    editedItem: {
+      name: '',
+      cost: 0,
+      amount: 0
+    },
+    defaultItem: {
+      name: '',
+      cost: 0,
+      amount: 0
+    },
   }),
+  methods: {
+    editItem (item) {
+      this.editedIndex = this.menu.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialog = true
+    },
+
+    deleteItem (item) {
+      this.editedIndex = this.menu.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialogDelete = true
+    },
+
+    deleteItemConfirm () {
+      this.menu.splice(this.editedIndex, 1)
+      this.closeDelete()
+    },
+
+    close () {
+      this.dialog = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
+
+    closeDelete () {
+      this.dialogDelete = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
+
+    save () {
+      if (this.editedIndex > -1) {
+        Object.assign(this.menu[this.editedIndex], this.editedItem)
+      } else {
+        this.menu.push(this.editedItem)
+      }
+      this.close()
+    },
+  },
   computed: {
     ...mapGetters({
       menu: "menu",
-    })
-  }
-
+    }),
+   
+    formTitle () {
+      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+    },
+  },
+  watch: {
+    dialog (val) {
+      val || this.close()
+    },
+    dialogDelete (val) {
+      val || this.closeDelete()
+    },
+  },
 }
 </script>
-
-<style>
-
-</style>
