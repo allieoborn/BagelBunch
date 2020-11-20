@@ -22,14 +22,6 @@
 * Response
     * success: bool
     * error: Optional[str]
-    
-### POST /getAccountID (deprecated)
-* Request
-    * email: str
-* Response
-    * success: bool
-    * error: Optional[str]
-    * id: Optional[str]
 
 ### POST /updateName
 * Request
@@ -58,7 +50,7 @@
 ### POST /login
 * Request
     * email: str
-    * password: float
+    * password: str
 * Response
     * success: bool
     * account: Account
