@@ -17,9 +17,9 @@ const functions = {
 
   async getMenu() {
     let resp = await axios.post('/getMenu')
-    
+
     if (resp.data.success) {
-      console.log("menu: ",  resp.data.menu.menu)
+      console.log("menu: ", resp.data.menu.menu)
       store.state.menu = resp.data.menu.menu;
     }
 
@@ -108,7 +108,7 @@ const functions = {
       store.state.loggedIn = true;
 
       // Redirect
-      router.push({ name: "Home" });
+      routeLogin(resp.data.account);
     }
 
     // The `resp.data` object will always be the 
@@ -116,6 +116,7 @@ const functions = {
     return resp.data;
 
   },
+
 
   async logout() {
     let confirmed = confirm("Are you sure you want to log out?");
@@ -134,6 +135,14 @@ const functions = {
 
     return confirmed;
   },
+}
+
+function routeLogin(account) {
+  if (account.type === "customer") {
+    router.push({ name: "Home" });
+  } else if (account.type === "manager") {
+    router.push({ name: "admin-menu" });
+  }
 }
 
 Vue.prototype.$func = functions;
