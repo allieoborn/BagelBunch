@@ -14,7 +14,7 @@ export default new Vuex.Store({
       type:null
     },
 
-    store: {},
+    store: {}, // I don't think we are using this
     menu: null,
 
     site: {

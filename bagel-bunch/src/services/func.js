@@ -42,11 +42,11 @@ const functions = {
         favorite: null,
     */
     let resp = await axios.post('/createAccount', data);
-    console.log(resp);
     return resp.data.success;
   },
 
-  /* For the next 3:    <Andrew>
+  /* 
+    For the next 3:    <Andrew>
     Another Better option that I won't do rn cuz I 
     need to sleep is just v-model all the data <input/>
     tags to the $store and then here we just need to 
@@ -54,6 +54,7 @@ const functions = {
   */
   async updateName(new_name) {
     let resp = await axios.post('/updateName', { name: new_name });
+
     if (resp.data.success) {
       store.state.user.name = new_name;
     }
@@ -63,6 +64,7 @@ const functions = {
 
   async updatePassword(new_pass) {
     let resp = await axios.post('/updatePassword', { password: new_pass });
+
     if (resp.data.success) {
       store.state.user.password = new_pass;
     }
@@ -72,6 +74,7 @@ const functions = {
 
   async addMoney(amount) {
     let resp = await axios.post('/addMoney', { money: amount });
+    
     if (resp.data.success) {
       store.state.user.money += amount;
     }
