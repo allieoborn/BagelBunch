@@ -110,7 +110,7 @@ export default {
   created() {
     this.$func.getMenu();
 
-    this.$func.login( { email: "manager@bb.com", password: "asdf" } );
+    // this.$func.login( { email: "manager@bb.com", password: "asdf" } );
 
   }
 };

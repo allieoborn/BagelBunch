@@ -30,13 +30,13 @@
       </div>
 
       <div class="form-group">
-        <label for="inputEmail1">Email address</label>
+        <label for="inputEmail1">Email Address</label>
         <input
           v-model="form.email"
           type="email"
           class="form-control"
           id="inputEmail1"
-          placeholder="Default email"
+          placeholder="Employee Email"
         />
       </div>
 
@@ -47,7 +47,7 @@
           type="password"
           class="form-control"
           id="inputPassword"
-          placeholder="Default password"
+          placeholder="Default Password"
         />
       </div>
       
@@ -64,8 +64,6 @@
     </div>
     <div v-else>
       <h1>Account Successfully Created!</h1>
-      <p>Now go get yourself some bagels.</p>
-      <router-link to="/login">Back to login</router-link>
     </div>
   </div>
 </template>
