@@ -34,15 +34,15 @@ whether that be through an additional customer account, or a function of their e
 7. View the status of their order,
 8. If they are at the store in person, their order should be marked as ASAP,
 9. If they are not at the store, specify a pickup time (must be within 24 hours),
-10. Cancel an order if it's before the chef has started making it(they don't need to be able to edit their order, just cancel it completely),
+10. Cancel an order if it's before the chef has started making it,
 11. View their account balance,
 12. Add money to their account (Just specify an amount and have it added, no need to worry about actual credit card info),
 13. Edit their account info/change their password,
 14. View and re-order previous orders,
-15. (COULD) Have a notification sent to them when their order is ready
+15. Have a notification sent to them when their order is ready
 (Notification could be sent through email or text message - 
 I would think text message would be the most convenient for the customer),
-16. (COULD) If they buy a dozen bagels, have their account note that they get a free bagel.
+16. If they buy a dozen bagels, have their account note that they get a free bagel.
 
 17. Chef needs to be able to: View all open bagel orders,
 18. View the time it needs to be ready,
@@ -63,6 +63,7 @@ I would think text message would be the most convenient for the customer),
 29. Add/Remove menu items.
 
 #### 5. Future Features
+- Let customers pick their favorite menu item
 - Store information about which items people buy the most and which items get thrown away, 
 so they can improve inventory purchasing strategies in the future
 - Sort menu items so that the most popular items are at the top

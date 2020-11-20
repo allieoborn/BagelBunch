@@ -48,12 +48,8 @@
                 />
         </div>
         <div class="row">
-            <h5 class="spacing">Favorite Menu Item:</h5> 
-            <h5>{{ this.account.favorite }}</h5>
-        </div>
-        <div class="row">
             <h5 class="spacing">Previous Orders:</h5> 
-            <!-- <h5>{{ this.account.orders }}</h5> -->
+
         </div>
 
         <div class="m-5">
