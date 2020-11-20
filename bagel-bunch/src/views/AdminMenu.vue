@@ -5,13 +5,14 @@
         <h3 class="col-3">{{ name.charAt(0).toUpperCase() + name.slice(1) }}</h3>
         <div class="col-9 row">
           <h6 class="col-4">Name:</h6><h6 class="col-4">Cost:</h6><h6 class="col-4">Amount:</h6>
-          <div v-for="(item) in val" :key="`${name}-${item.name}`" class="container card">
-            <b-row>
-              <div class="col-1"></div>
-              <input class="col-4" type="text" v-model="item.name"/>
-              <input class="col-4" type="number" v-model="item.cost"/>
-              <input class="col-3" type="number" v-model="item.amount"/>
-            </b-row>
+          <div v-for="item in val" :key="`${name}-${item.name}`" class="container card">
+            <div class="form-group">
+              <b-row class="px-1">
+                <b-form-input class="col-3 mx-2" type="text" v-model="item.name">{{item.name}}</b-form-input>
+                <b-form-input class="col-3 mx-2" type="number" v-model="item.cost"></b-form-input>
+                <b-form-input class="col-3 mx-2" type="number" v-model="item.amount"></b-form-input>
+              </b-row>
+            </div>
           </div>
         </div>
       </b-row>

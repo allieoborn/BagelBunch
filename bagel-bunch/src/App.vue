@@ -110,9 +110,14 @@ export default {
   created() {
     this.$func.getMenu();
 
+<<<<<<< HEAD
     // this.$func.login( { email: "manager@bb.com", password: "asdf" } );
 
     // this.$router.push({ name: "admin-menu" })
+=======
+  //   this.$func.login( { email: "manager@bb.com", password: "asdf" } );
+
+>>>>>>> 49d6716728f8de5862484698f751b06bf94e1bbf
   }
 };
 </script>
