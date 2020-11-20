@@ -238,16 +238,17 @@ export const order = functions.https.onRequest(async (request, response) => {
     return;
 });
 
-export const getAccountOrders = functions.https.onRequest(async (request, response) => {
+export const getOrders = functions.https.onRequest(async (request, response) => {
     if (!(await functionWrapper(request, response))) {
         return;
     }
     const accountID = request.body.accountID;
-    if (!accountID) {
-        response.status(400).json({success: false, error: 'accountID argument required'});
-        return;
+    let orders;
+    if (accountID) {
+        orders = await admin.firestore().collection('orders').where('accountID', '==', accountID).get();
+    } else {
+        orders = await admin.firestore().collection('orders').get();
     }
-    const orders = await admin.firestore().collection('orders').where('accountID', '==', accountID).get();
     let returnDocs: FirebaseFirestore.DocumentData[] = [];
     orders.docs.forEach((e) => {
         const data = e.data();
