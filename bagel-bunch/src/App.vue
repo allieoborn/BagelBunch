@@ -2,7 +2,7 @@
   <v-app>
     <!-- Top Nav Bar -->
     <v-app-bar app :color="site.mainColor" dark>
-      <v-app-bar-nav-icon @click.stop="drawer = true"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon v-if="$store.state.loggedIn" @click.stop="drawer = true"></v-app-bar-nav-icon>
 
       <v-spacer></v-spacer>
 
@@ -79,9 +79,16 @@ export default {
       this.$func.logout()
     },
     displayItem(item) {
+
       // Displays when logged out or logged on 
       //  but Doesn't display a route no-matter what.
-      return item.meta.drawer && (item.meta.requiresAuth == this.$store.state.loggedIn)
+      return item.meta.drawer 
+      && (item.meta.requiresAuth == this.$store.state.loggedIn)
+
+      // Showing only for the specified types
+      //  Explained: if the users type is included in the list, or it's zero
+      //  but there is nothing for a heiarchy where the manager can see everything and the chef can see less but more than the cashier
+      && ( item.meta.requiredTypes.includes(this.$store.state.user.type) || item.meta.requiredTypes.length === 0)      
     }
   },
   computed: {
@@ -99,6 +106,12 @@ export default {
       user: "user",
       site: "site"
     })
+  },
+  created() {
+    this.$func.getMenu();
+
+  //   this.$func.login( { email: "manager@bb.com", password: "asdf" } );
+
   }
 };
 </script>
