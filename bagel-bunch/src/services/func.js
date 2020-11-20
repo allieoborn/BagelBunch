@@ -139,7 +139,7 @@ const functions = {
 
 function routeLogin(account) {
   if (account.type === "customer") {
-    router.push({ name: "Home" });
+    router.push({ name: "Order" });
   } else if (account.type === "manager") {
     router.push({ name: "admin-menu" });
   }
