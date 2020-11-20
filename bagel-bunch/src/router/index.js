@@ -14,12 +14,12 @@ const routes = [
     display unless logged in.
   */
   {
-    path: "/", name: "Home", component: () => import("../views/Home.vue"),
+    path: "/", name: "Order", component: () => import("../views/Order.vue"),
     meta: {
       requiresAuth: true,
       drawer: true,
       requiredTypes: [],
-      icon: "mdi-home"
+      icon: "mdi-food"
     }
   },
   {
@@ -67,6 +67,24 @@ const routes = [
       icon: "mdi-shield-plus"
     }
   },
+  {
+    path: "/chef-view", name: "chef-view", component: () => import("../views/Chef.vue"),
+    meta: {
+      requiresAuth: true,
+      drawer: true,
+      requiredTypes: ['manager', 'chef'],
+      icon: "mdi-chef-hat"
+    }
+  },
+  {
+    path: "/cashier-view", name: "cashier-view", component: () => import("../views/Cashier.vue"),
+    meta: {
+      requiresAuth: true,
+      drawer: true,
+      requiredTypes: ['manager', 'cashier'],
+      icon: "mdi-cash-check"
+    }
+  },
 ];
 
 const router = new VueRouter({
@@ -77,8 +95,8 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 
-  // If no last, set to "Home"
-  to.params.last = from.name ? from.name : "Home";
+  // If no last, set to "Order"
+  to.params.last = from.name ? from.name : "Order";
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
 
