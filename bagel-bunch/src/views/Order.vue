@@ -1,7 +1,5 @@
 <template>
-  <v-container>
-    Hello Home
-  </v-container>
+  <v-container> Order Page </v-container>
 </template>
 
 <script>
