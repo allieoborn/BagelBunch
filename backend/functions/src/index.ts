@@ -243,8 +243,9 @@ export const getOrders = functions.https.onRequest(async (request, response) => 
         return;
     }
     const accountID = request.body.accountID;
+    const onlyAccountOrders = request.body.onlyAccountOrders;
     let orders;
-    if (accountID) {
+    if (onlyAccountOrders) {
         orders = await admin.firestore().collection('orders').where('accountID', '==', accountID).get();
     } else {
         orders = await admin.firestore().collection('orders').get();
@@ -256,6 +257,58 @@ export const getOrders = functions.https.onRequest(async (request, response) => 
         returnDocs.push(data);
     });
     response.status(200).json({success: true, orders: returnDocs});
+    return;
+});
+
+export const updateOrderStatus = functions.https.onRequest(async (request, response) => {
+    if (!(await functionWrapper(request, response))) {
+        return;
+    }
+    const orderID = request.body.orderID;
+    if (!orderID) {
+        response.status(400).json({success: false, error: 'orderID argument required'});
+        return;
+    }
+    const status = request.body.status;
+    if (!status) {
+        response.status(400).json({success: false, error: 'status argument required'});
+        return;
+    }
+    if (status !== 'in-progress' && status !== 'completed' && status !== 'delivered' && status !== 'cancelled') {
+        response.status(400).json({success: false, error: 'status argument must be in-progress, completed, delivered, cancelled'});
+        return;
+    }
+    const order = await firebaseHelper.firestore.getDocument(db, 'orders', orderID);
+    if (!order) {
+        response.status(400).json({success: false, error: `no order with that orderID (${orderID}) was found`});
+        return;
+    }
+    if (status === 'delivered') {
+        const account = await firebaseHelper.firestore.getDocument(db, 'accounts', order.accountID);
+        account.money -= order.cost;
+        await firebaseHelper.firestore.updateDocument(db, 'accounts', order.accountID, account);
+    } else if (status === 'completed') {
+        const menu = await firebaseHelper.firestore.getDocument(db, 'menus', 'menu');
+        let items: {[k: string]: any} = {};
+        order.dishes.forEach((dish: any) => {
+            dish.dish.forEach((item: string) => {
+                if (item in items) {
+                    items[item] += 1;
+                } else {
+                    items[item] = 1;
+                }
+            });
+        });
+        menu.menu.forEach((menuItem: any) => {
+            if (menuItem.name in items) {
+                menuItem.amount -= items[menuItem.name];
+            }
+        });
+        await firebaseHelper.firestore.updateDocument(db, 'menus', 'menu', menu);
+    }
+    order.status = status;
+    await firebaseHelper.firestore.updateDocument(db, 'orders', orderID, order);
+    response.status(200).json({success: true});
     return;
 });
 
