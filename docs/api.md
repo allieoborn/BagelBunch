@@ -78,3 +78,28 @@
 * Response
     * success: bool
     * error: Optional[str]
+
+### POST /order
+* Request
+    * accountID: str
+    * milliseconds: float
+    * cost: float
+    * dishes: List[Dish]
+* Response
+    * success: bool
+    * error: Optional[str]
+
+### POST /getOrders
+* Request
+    * accountID: Optional[str]
+    * onlyAccountOrders: Optional[bool]
+* Response
+    * success: bool
+    * orders: List[Order]
+
+### POST /updateOrderStatus
+* Request
+    * orderID: str
+    * status: str (in-progress, completed, delivered, cancelled)
+* Response
+    * success: bool
