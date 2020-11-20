@@ -17,25 +17,10 @@ const functions = {
 
   async getMenu() {
     let resp = await axios.post('/getMenu')
-    
+
     if (resp.data.success) {
       store.state.menu = resp.data.menu.menu;
     }
-
-    // let new_menu = []
-    // for (const [name, val] of Object.entries(store.state.menu)) {
-    //   for (const item of val) {
-
-    //     console.log({ type: name, ...item })
-
-    //     new_menu.push({ type: name, ...item })
-
-    //   }
-    //   // console.log(new_menu)
-    // }
-    // console.log( new_menu )
-    // store.state.menu2 = new_menu
-    // this.updateMenu()
 
     return resp.data;
   },
@@ -106,7 +91,7 @@ const functions = {
       store.state.loggedIn = true;
 
       // Redirect
-      router.push({ name: "Home" });
+      routeLogin(resp.data.account);
     }
 
     // The `resp.data` object will always be the 
@@ -114,6 +99,7 @@ const functions = {
     return resp.data;
 
   },
+
 
   async logout() {
     let confirmed = confirm("Are you sure you want to log out?");
@@ -132,6 +118,14 @@ const functions = {
 
     return confirmed;
   },
+}
+
+function routeLogin(account) {
+  if (account.type === "customer") {
+    router.push({ name: "Home" });
+  } else if (account.type === "manager") {
+    router.push({ name: "admin-menu" });
+  }
 }
 
 Vue.prototype.$func = functions;
