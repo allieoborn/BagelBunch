@@ -19,7 +19,6 @@ const functions = {
     let resp = await axios.post('/getMenu')
     
     if (resp.data.success) {
-      console.log("menu: ",  resp.data.menu.menu)
       store.state.menu = resp.data.menu.menu;
     }
 
@@ -43,7 +42,6 @@ const functions = {
 
   async updateMenu() {
     let resp = await axios.post('/updateMenu', { menu: { menu: store.state.menu } });
-    console.log(resp, resp.data)
     return resp.data;
   },
 

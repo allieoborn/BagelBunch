@@ -15,17 +15,35 @@
     <template v-slot:top>
       <v-toolbar flat >
         <v-toolbar-title>AdminMenu</v-toolbar-title>
-        <v-divider
-          class="mx-4"
-          inset
-          vertical
-        ></v-divider>
+
         <v-spacer></v-spacer>
+
+        <p v-if="sending">Sending Update ...</p>
+
+        <v-spacer></v-spacer>
+
         <v-dialog
           v-model="dialog"
           max-width="500px"
         >
+
+          <!-- New and Update Buttons -->
           <template v-slot:activator="{ on, attrs }">
+            
+            <v-btn
+              color="primary"
+              dark
+              class="mb-2 ml-2"
+              @click="updateMenu"
+            >
+              <!-- Send Updated Menu -->
+              <v-progress-circular v-if="sending"
+                indeterminate
+                color="white"
+              ></v-progress-circular>
+              <v-icon v-else>mdi-send</v-icon>
+            </v-btn>
+
             <v-btn
               color="primary"
               dark
@@ -33,22 +51,16 @@
               v-bind="attrs"
               v-on="on"
             >
-              New Item
+              <!-- New Item -->
+              <v-icon>mdi-shape-square-rounded-plus</v-icon>
             </v-btn>
-            <v-btn
-              color="primary"
-              dark
-              class="mb-2"
-              v-bind="attrs"
-              v-on="on"
-            >
-              Send Updated Menu
-            </v-btn>
+
           </template>
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
             </v-card-title>
+
 
             <v-card-text>
               <v-container>
@@ -81,6 +93,7 @@
                     <v-text-field
                       v-model="editedItem.cost"
                       label="Cost"
+                      type="number"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -91,6 +104,7 @@
                     <v-text-field
                       v-model="editedItem.amount"
                       label="Amount"
+                      type="number"
                     ></v-text-field>
                   </v-col>
 
@@ -164,6 +178,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: "AdminMenu", 
   data: () => ({
+    sending: false,
     dialog: false,
     dialogDelete: false,
     headers: [
@@ -186,6 +201,16 @@ export default {
     },
   }),
   methods: {
+
+    updateMenu() {
+      this.sending = true;
+      this.$func.updateMenu()
+      .then(() => this.doneUpdating())
+    },
+    doneUpdating() {
+      
+      this.sending = false;
+    },
     editItem (item) {
       this.editedIndex = this.menu.indexOf(item)
       this.editedItem = Object.assign({}, item)
