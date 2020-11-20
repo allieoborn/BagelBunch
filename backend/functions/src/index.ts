@@ -54,15 +54,12 @@ export const createAccount = functions.https.onRequest(async (request, response)
     if (!money) {
         money = 100;
     }
-    const favorite = request.body.favorite;
     await firebaseHelper.firestore.createNewDocument(db, 'accounts', {
         name: name,
         email: email,
         password: password,
         type: type,
-        money: money,
-        favorite: favorite === undefined ? null : favorite,
-        orders: []
+        money: money
     });
     response.status(200).json({success: true});
     return;
@@ -194,6 +191,49 @@ export const updateMenu = functions.https.onRequest(async (request, response) =>
         return;
     }
     await firebaseHelper.firestore.updateDocument(db, 'menus', 'menu', menu);
+    response.status(200).json({success: true});
+    return;
+});
+
+export const order = functions.https.onRequest(async (request, response) => {
+    if (!(await functionWrapper(request, response))) {
+        return;
+    }
+    const accountID = request.body.accountID;
+    if (!accountID) {
+        response.status(400).json({success: false, error: 'accountID argument required'});
+        return;
+    }
+    const milliseconds = request.body.milliseconds;
+    if (!milliseconds) {
+        response.status(400).json({success: false, error: 'milliseconds argument required'});
+        return;
+    }
+    if (typeof milliseconds !== 'number') {
+        response.status(400).json({success: false, error: 'milliseconds argument must be a number'});
+        return;
+    }
+    const cost = request.body.cost;
+    if (!cost) {
+        response.status(400).json({success: false, error: 'cost argument required'});
+        return;
+    }
+    if (typeof cost !== 'number') {
+        response.status(400).json({success: false, error: 'cost argument must be a number'});
+        return;
+    }
+    const dishes = request.body.dishes;
+    if (!dishes) {
+        response.status(400).json({success: false, error: 'dishes argument required'});
+        return;
+    }
+    await firebaseHelper.firestore.createNewDocument(db, 'orders', {
+        accountID: accountID,
+        milliseconds: milliseconds,
+        cost: cost,
+        dishes: dishes,
+        status: 'ordered'
+    });
     response.status(200).json({success: true});
     return;
 });

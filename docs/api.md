@@ -78,3 +78,13 @@
 * Response
     * success: bool
     * error: Optional[str]
+
+### POST /order
+* Request
+    * accountID: str
+    * milliseconds: float
+    * cost: float
+    * dishes: List[Dish]
+* Response
+    * success: bool
+    * error: Optional[str]
