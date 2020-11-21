@@ -18,7 +18,7 @@
 
         <v-spacer></v-spacer>
 
-        <p v-if="sending">Sending Update ...</p>
+        <h4 v-if="sending">Sending Update ...</h4>
 
         <v-spacer></v-spacer>
 
@@ -56,11 +56,12 @@
             </v-btn>
 
           </template>
+
+          <!-- Data Popup -->
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
             </v-card-title>
-
 
             <v-card-text>
               <v-container>

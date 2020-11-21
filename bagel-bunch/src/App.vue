@@ -4,6 +4,12 @@
     <v-app-bar app :color="site.mainColor" dark>
       <v-app-bar-nav-icon v-if="$store.state.loggedIn" @click.stop="drawer = true"></v-app-bar-nav-icon>
 
+      <v-switch
+        v-model="$vuetify.theme.dark"
+        :label="$vuetify.theme.dark ? 'Dark' : 'Light'"
+        class="pt-5"
+      ></v-switch>
+
       <v-spacer></v-spacer>
 
       <img src="favicon.ico" alt="Bagel-Logo" width="50" class="mx-5"/>
@@ -109,8 +115,9 @@ export default {
   },
   created() {
     this.$func.getMenu();
+    this.$func.getOrders()
 
-    this.$func.login( { email: "manager@bb.com", password: "asdf" } );
+    // this.$func.login( { email: "manager@bb.com", password: "asdf" } );
 
   }
 };

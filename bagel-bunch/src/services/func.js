@@ -1,19 +1,36 @@
 import Vue from 'vue'
 import store from '../store'
 import router from '../router'
-
-// Adds accountID and email every request 
 import axios from "./myAxios";
-// import qs from "qs";
-// import cors from 'cors';
-// cors({ origin: true });
 
-// Http.create({ baseURL: 'https://us-central1-bagelbunch-b5e21.cloudfunctions.net'})
-
-// All POST Requests
-// Commonly Returns { success: Bool, error: String, id: for getAccountID-only }
 
 const functions = {
+  async updateOrderStatus(order) {
+    let resp = await axios.post('/updateOrderStatus', order)
+    if (!resp.data.success) {
+      return false;
+    } else {
+
+      this.getOrders();
+      return true
+    }
+
+  },
+  async getOrders() {
+    let resp = await axios.post('/getOrders')
+
+    console.log('asdf', resp.data)
+    if (resp.data.success) {
+      store.state.orders = resp.data.orders;
+    }
+
+    return resp.data;
+  },
+
+  async order() {
+    let resp = await axios.post('/order');
+    return resp.data;
+  },
 
   async getMenu() {
     let resp = await axios.post('/getMenu')
