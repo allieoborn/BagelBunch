@@ -39,10 +39,10 @@ whether that be through an additional customer account, or a function of their e
 12. Add money to their account (Just specify an amount and have it added, no need to worry about actual credit card info),
 13. Edit their account info/change their password,
 14. View and re-order previous orders,
-15. Have a notification sent to them when their order is ready
+15. (COULD) Have a notification sent to them when their order is ready
 (Notification could be sent through email or text message - 
 I would think text message would be the most convenient for the customer),
-16. If they buy a dozen bagels, have their account note that they get a free bagel.
+16. (COULD) If they buy a dozen bagels, have their account note that they get a free bagel.
 
 17. Chef needs to be able to: View all open bagel orders,
 18. View the time it needs to be ready,
@@ -63,6 +63,7 @@ I would think text message would be the most convenient for the customer),
 29. Add/Remove menu items.
 
 #### 5. Future Features
+- Let customers pick their favorite menu item
 - Store information about which items people buy the most and which items get thrown away, 
 so they can improve inventory purchasing strategies in the future
 - Sort menu items so that the most popular items are at the top
