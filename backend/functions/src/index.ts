@@ -54,15 +54,12 @@ export const createAccount = functions.https.onRequest(async (request, response)
     if (!money) {
         money = 100;
     }
-    const favorite = request.body.favorite;
     await firebaseHelper.firestore.createNewDocument(db, 'accounts', {
         name: name,
         email: email,
         password: password,
         type: type,
-        money: money,
-        favorite: favorite === undefined ? null : favorite,
-        orders: []
+        money: money
     });
     response.status(200).json({success: true});
     return;
@@ -194,6 +191,123 @@ export const updateMenu = functions.https.onRequest(async (request, response) =>
         return;
     }
     await firebaseHelper.firestore.updateDocument(db, 'menus', 'menu', menu);
+    response.status(200).json({success: true});
+    return;
+});
+
+export const order = functions.https.onRequest(async (request, response) => {
+    if (!(await functionWrapper(request, response))) {
+        return;
+    }
+    const accountID = request.body.accountID;
+    if (!accountID) {
+        response.status(400).json({success: false, error: 'accountID argument required'});
+        return;
+    }
+    const milliseconds = request.body.milliseconds;
+    if (!milliseconds) {
+        response.status(400).json({success: false, error: 'milliseconds argument required'});
+        return;
+    }
+    if (typeof milliseconds !== 'number') {
+        response.status(400).json({success: false, error: 'milliseconds argument must be a number'});
+        return;
+    }
+    const cost = request.body.cost;
+    if (!cost) {
+        response.status(400).json({success: false, error: 'cost argument required'});
+        return;
+    }
+    if (typeof cost !== 'number') {
+        response.status(400).json({success: false, error: 'cost argument must be a number'});
+        return;
+    }
+    const dishes = request.body.dishes;
+    if (!dishes) {
+        response.status(400).json({success: false, error: 'dishes argument required'});
+        return;
+    }
+    await firebaseHelper.firestore.createNewDocument(db, 'orders', {
+        accountID: accountID,
+        milliseconds: milliseconds,
+        cost: cost,
+        dishes: dishes,
+        status: 'ordered'
+    });
+    response.status(200).json({success: true});
+    return;
+});
+
+export const getOrders = functions.https.onRequest(async (request, response) => {
+    if (!(await functionWrapper(request, response))) {
+        return;
+    }
+    const accountID = request.body.accountID;
+    const onlyAccountOrders = request.body.onlyAccountOrders;
+    let orders;
+    if (onlyAccountOrders) {
+        orders = await admin.firestore().collection('orders').where('accountID', '==', accountID).get();
+    } else {
+        orders = await admin.firestore().collection('orders').get();
+    }
+    let returnDocs: FirebaseFirestore.DocumentData[] = [];
+    orders.docs.forEach((e) => {
+        const data = e.data();
+        data.orderID = e.id;
+        returnDocs.push(data);
+    });
+    response.status(200).json({success: true, orders: returnDocs});
+    return;
+});
+
+export const updateOrderStatus = functions.https.onRequest(async (request, response) => {
+    if (!(await functionWrapper(request, response))) {
+        return;
+    }
+    const orderID = request.body.orderID;
+    if (!orderID) {
+        response.status(400).json({success: false, error: 'orderID argument required'});
+        return;
+    }
+    const status = request.body.status;
+    if (!status) {
+        response.status(400).json({success: false, error: 'status argument required'});
+        return;
+    }
+    if (status !== 'in-progress' && status !== 'completed' && status !== 'delivered' && status !== 'cancelled') {
+        response.status(400).json({success: false, error: 'status argument must be in-progress, completed, delivered, cancelled'});
+        return;
+    }
+    const order = await firebaseHelper.firestore.getDocument(db, 'orders', orderID);
+    if (!order) {
+        response.status(400).json({success: false, error: `no order with that orderID (${orderID}) was found`});
+        return;
+    }
+    if (status === 'delivered') {
+        const account = await firebaseHelper.firestore.getDocument(db, 'accounts', order.accountID);
+        account.money -= order.cost;
+        await firebaseHelper.firestore.updateDocument(db, 'accounts', order.accountID, account);
+    } else if (status === 'completed') {
+        const menu = await firebaseHelper.firestore.getDocument(db, 'menus', 'menu');
+        let items: {[k: string]: any} = {};
+        order.dishes.forEach((dish: any) => {
+            dish.dish.forEach((item: string) => {
+                if (item in items) {
+                    items[item] += 1;
+                } else {
+                    items[item] = 1;
+                }
+            });
+        });
+        menu.menu.forEach((menuItem: any) => {
+            if (menuItem.name in items) {
+                menuItem.amount -= items[menuItem.name];
+            }
+        });
+        await firebaseHelper.firestore.updateDocument(db, 'menus', 'menu', menu);
+    }
+    order.status = status;
+    await firebaseHelper.firestore.updateDocument(db, 'orders', orderID, order);
     response.status(200).json({success: true});
     return;
 });
