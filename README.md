@@ -20,7 +20,7 @@
     * `cd` into the backend directory
     * Install python3
     * `pip3 install requests`
-    * `pyton3 backend_test.py`
+    * `python3 backend_test.py`
 
 ## Frontend Testing Documentation
 * Before merging anything into master, we manually test the following views:
