@@ -9,7 +9,27 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Home",
+  data() {
+    return {
+      order: {
+        accountID: "", // string
+        milliseconds: 0, // number
+        cost: 0, // number
+        dishes: [{ dish: ["something"] }],
+      },
+    };
+  },
+  created() {
+    console.log(this.menu);
+  },
+  computed: {
+    ...mapGetters({
+      menu: "parsedMenu",
+    }),
+  },
 };
 </script>

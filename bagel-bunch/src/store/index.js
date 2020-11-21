@@ -11,7 +11,7 @@ export default new Vuex.Store({
     accountID: null,
 
     user: {
-      type:null
+      type: null
     },
 
     store: {},
@@ -33,6 +33,17 @@ export default new Vuex.Store({
     },
     menu(state) {
       return state.menu;
+    },
+    parsedMenu(state) {
+      var pMenu = {}
+      for (var item of state.menu) {
+        if (pMenu[item.type] == undefined) { // if there's nothing start the list
+          pMenu[item.type] = [item];
+        } else {
+          pMenu[item.type].push(item);
+        }
+      }
+      return pMenu;
     }
   },
   mutations: {},
