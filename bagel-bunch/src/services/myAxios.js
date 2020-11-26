@@ -4,7 +4,7 @@ import store from '../store';
 
 // Creating our own Axios
 const myAxios = axios.create({
-  baseURL: 'http://us-central1-bagelbunch-b5e21.cloudfunctions.net',
+  baseURL: 'https://us-central1-bagelbunch-b5e21.cloudfunctions.net',
   headers: { 
     "Content-Type": "application/json",
    },
