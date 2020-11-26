@@ -31,7 +31,7 @@
           <template v-slot:activator="{ on, attrs }">
             
             <v-btn
-              color="primary"
+              color="color2"
               dark
               class="mb-2 ml-2"
               @click="updateMenu"
@@ -45,7 +45,7 @@
             </v-btn>
 
             <v-btn
-              color="primary"
+              color="color2"
               dark
               class="mb-2"
               v-bind="attrs"
@@ -116,14 +116,14 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                color="blue darken-1"
+                color="color2"
                 text
                 @click="close"
               >
                 Cancel
               </v-btn>
               <v-btn
-                color="blue darken-1"
+                color="color2"
                 text
                 @click="save"
               >
@@ -137,8 +137,8 @@
             <v-card-title class="headline">Are you sure you want to delete this item?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="color2" text @click="closeDelete">Cancel</v-btn>
+              <v-btn color="color2" text @click="deleteItemConfirm">OK</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -162,7 +162,7 @@
     </template>
     <template v-slot:no-data>
       <v-btn
-        color="primary"
+        color="color2"
         @click="initialize"
       >
         Reset

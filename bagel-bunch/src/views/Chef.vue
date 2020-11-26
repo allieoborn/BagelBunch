@@ -12,10 +12,10 @@
       <!-- Header -->
       <template v-slot:header>
         <v-toolbar
-          dark
-          color="blue darken-3"
+          color="color2"
           class="mb-1"
         >
+        
           <v-text-field
             v-model="search"
             clearable
@@ -27,17 +27,23 @@
           ></v-text-field>
 
           <template v-if="$vuetify.breakpoint.mdAndUp">
+
             <v-spacer></v-spacer>
+
             <v-select
               v-model="sortBy"
               flat
               solo-inverted
               hide-details
               :items="keys"
+              item-text="text"
+              item-value="value"
               prepend-inner-icon="mdi-magnify"
               label="Sort by"
             ></v-select>
+
             <v-spacer></v-spacer>
+
             <v-btn-toggle
               v-model="sortDesc"
               mandatory
@@ -45,7 +51,7 @@
               <v-btn
                 large
                 depressed
-                color="blue"
+                color="color2"
                 :value="false"
               >
                 <v-icon>mdi-arrow-up</v-icon>
@@ -53,59 +59,68 @@
               <v-btn
                 large
                 depressed
-                color="blue"
+                color="color2"
                 :value="true"
               >
                 <v-icon>mdi-arrow-down</v-icon>
               </v-btn>
             </v-btn-toggle>
+            
           </template>
+
         </v-toolbar>
       </template>
 
       <!-- Cards -->
-      <template v-slot:default="props">
-        <v-row>
+      <template  v-slot:default="props">
+        <v-row >
           <v-col
             v-for="item in props.items"
             :key="item.orderID"
             cols="12"
-            sm="6"
+            sm="12"
             md="6"
             lg="6"
+            
           >
           <!-- light -->
-            <v-card >
-              <v-card-title class="subheading font-weight-bold">
+            <v-card color="color2" >
+              <v-card-title  class="subheading font-weight-bold">
 
-                <v-select
+                <v-select 
                   @change="sendOrderUpdate"
                   :items="getSelectItems(item)"
-                  :label="item.status"
+                  :label="item.status.toUpperCase()"
                   solo
+                  hide-details
                 ></v-select>
 
               </v-card-title>
 
-              <v-divider></v-divider>
+              <v-divider class="mt-0"></v-divider>
 
-              <v-list dense>
+              <v-row>
+                <v-card class="mx-auto py-2 px-5">Dishes:</v-card>
+              </v-row>
+
+              <v-list color="color2" dense>
 
                 <v-list-item v-for="(dish, idx) in item.dishes" :key="idx">
 
-                  <v-list-item-content>
-                    Dish {{ idx }}:
-                  </v-list-item-content>
-
-                  <v-card class="my-2">
+                  <v-card class="my-2 align-end"> 
+                    <!-- color="color2"> -->
                     <v-list-item-content>
-                      <v-col v-for="(asdf, idx) in dish.dish" :key="idx" class="px-4">
+                      <v-col 
+                        v-for="(asdf, idx) in dish.dish" 
+                        :key="idx" 
+                        class="px-4 py-1"
+                      >
                         {{ asdf }}
                       </v-col>  
                     </v-list-item-content>
                   </v-card>
-
                 </v-list-item>
+                <v-divider></v-divider>
 
                 <v-list-item>
 
@@ -138,7 +153,7 @@
               <v-btn
                 dark
                 text
-                color="primary"
+                color="color2"
                 class="ml-2"
                 v-bind="attrs"
                 v-on="on"
@@ -168,8 +183,8 @@
           </span>
           <v-btn
             fab
-            dark
-            color="blue darken-3"
+            
+            color="color2"
             class="mr-1"
             @click="formerPage"
           >
@@ -177,8 +192,8 @@
           </v-btn>
           <v-btn
             fab
-            dark
-            color="blue darken-3"
+            
+            color="color2"
             class="ml-1"
             @click="nextPage"
           >
@@ -197,35 +212,18 @@ export default {
   name: "Chef",
   data () {
     return {
-      orderOBJ: {
-        accountID: "fioXZjrRDCVW7sE5sCvj",
-        cost: 6,
-        dishes: [
-          { dish: [ "original", "plain", "bacon" ] },
-          { dish: [ "coffee" ] }
-        ],
-        milliseconds: 1605838113828,
-        orderID: "B4UdO3DdbWSXMQtrcwLJ",
-        status: "ordered",
-      },
 
-      // Tell Wesley that all requests have the account ID so
-      //  It will come for the managers and everyone
-      //  We can just pass a filter attribute
       itemsPerPageArray: [1, 2, 3, 4],
       search: '',
       filter: {},
       sortDesc: false,
       page: 1,
       itemsPerPage: 2,
-      sortBy: 'status',
+      sortBy: 'miliseconds',
       keys: [
-        // "accountID",
-        "dishes",
-        "cost",
-        "milliseconds",
-        // "orderID",
-        // "status",
+        { text: "Status", value: "status" },
+        { text: "Cost", value: "cost" },
+        { text: "Time", value: "miliseconds" },
       ],
       orderTypes: [
         "in-progress", 

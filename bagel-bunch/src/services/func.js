@@ -19,7 +19,6 @@ const functions = {
   async getOrders() {
     let resp = await axios.post('/getOrders')
 
-    console.log('asdf', resp.data)
     if (resp.data.success) {
       store.state.orders = resp.data.orders;
     }

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <!-- Top Nav Bar -->
-    <v-app-bar app :color="site.mainColor" dark>
+    <v-app-bar app color="color1" dark>
       <v-app-bar-nav-icon
         v-if="$store.state.loggedIn"
         @click.stop="drawer = true"
@@ -125,7 +125,7 @@ export default {
     this.$func.getMenu();
     this.$func.getOrders()
 
-    // this.$func.login( { email: "manager@bb.com", password: "asdf" } );
+    this.$func.login( { email: "cashier@bb.com", password: "asdf" } );
 
   }
 };
