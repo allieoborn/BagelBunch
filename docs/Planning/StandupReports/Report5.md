@@ -1,9 +1,9 @@
-## Wed Nov 11
+## Thurs Nov 19
 ## Scrum Master: Allie
 
 Team Member: Allie
-Progress since last scrum: 
-Plan for next scrum: 
+Progress since last scrum: got admin view working for adding new chefs and cashiers
+Plan for next scrum: add some functionality to admin view and start on cashier view
 Any Obstacles: none
 
 Team Member: Andrew
