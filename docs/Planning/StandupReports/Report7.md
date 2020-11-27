@@ -1,22 +1,29 @@
-## Wed Nov 18
-## Scrum Master: Allie
+## Tues Nov 24
 
-Team Member: Allie
-Progress since last scrum: 
-Plan for next scrum: 
+#### Team Member: Allie (Scrum Master)
+Progress since last scrum: started the cashier view
+
+Plan for next scrum: finish cashier view
+
 Any Obstacles: none
 
-Team Member: Andrew
-Progress since last scrum: 
-Plan before next scrum:
-Any Obstacles:
+#### Team Member: Andrew
+Progress since last scrum: finished chef view
 
-Team Member: Eli
-Progress since last scrum:
-Plan before next scrum:
-Any Obstacles:
+Plan before next scrum: help Allie finish cashier view
 
-Team Member: Wesley
-Progress since last scrum:
-Plan before next scrum:
-Any Obstacles:
+Any Obstacles: none
+
+#### Team Member: Eli
+Progress since last scrum: finished the ordering/menu page
+
+Plan before next scrum: help Wesley finish the testing
+
+Any Obstacles: none
+
+#### Team Member: Wesley
+Progress since last scrum: started working on testing the code
+
+Plan before next scrum: finish testing
+
+Any Obstacles: none
