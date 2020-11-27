@@ -11,6 +11,7 @@
     <div class="form-group">
       <label for="inputEmail1">Email address</label>
       <input
+        @keyup.enter="submitLogin"
         v-model="form.email"
         type="email"
         class="form-control"

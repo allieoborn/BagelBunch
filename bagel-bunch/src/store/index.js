@@ -14,8 +14,8 @@ export default new Vuex.Store({
       type:null
     },
 
-    store: {},
     menu: null,
+    orders: null,
 
     site: {
       compName: "BagelBunch",
@@ -33,6 +33,9 @@ export default new Vuex.Store({
     },
     menu(state) {
       return state.menu;
+    },
+    orders(state) {
+      return state.orders;
     }
   },
   mutations: {},
