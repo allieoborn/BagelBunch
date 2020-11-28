@@ -18,9 +18,6 @@ export default {
       this.dish.push("Another Thing");
     },
   },
-  created() {
-    console.log(this.dish);
-  },
 };
 </script>
 

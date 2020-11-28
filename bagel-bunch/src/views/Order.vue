@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       order: {
-        // account ID is automatically sent ?I THINK? so we don't need to handle it here
+        // account ID is automatically sent so we don't need to handle it here
         milliseconds: 1234, // number
         cost: 2345, // number
         dishes: [
@@ -66,9 +66,6 @@ export default {
     printOrder() {
       console.log(this.order);
     },
-  },
-  created() {
-    console.log(this.menu);
   },
   computed: {
     ...mapGetters({
