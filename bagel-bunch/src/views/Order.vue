@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-container v-if="!orderSubmitted">
+      <!-- Top stuff -->
       <div class="d-flex justify-space-between">
         <h1>Order</h1>
         <v-btn @click="printOrder">Print Order</v-btn>
@@ -9,13 +10,16 @@
       <hr />
 
       <!-- Card for each dish in the order so far -->
-      <dish-card
-        v-for="d of this.order.dishes"
-        :key="d.dish[0]"
-        :dish="d.dish"
-        class="my-3"
-      />
+      <v-expansion-panels>
+        <dish-card
+          v-for="d of this.order.dishes"
+          :key="d.dish[0]"
+          :dishProp="d.dish"
+          class="my-3"
+        />
+      </v-expansion-panels>
 
+      <!-- Add item button -->
       <div
         class="d-flex flex-row pa-6 align-center justify-center"
         @click="newDish"
