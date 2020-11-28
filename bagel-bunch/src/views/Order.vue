@@ -3,14 +3,19 @@
     <v-container v-if="!orderSubmitted">
       <div class="d-flex justify-space-between">
         <h1>Order</h1>
-        <v-btn color="primary" @click="submitOrder">Done</v-btn>
+        <v-btn @click="printOrder">Print Order</v-btn>
+        <v-btn color="primary" @click="submitOrder">Order Complete</v-btn>
       </div>
       <hr />
 
       <!-- Card for each dish in the order so far -->
-      <v-card v-for="d of this.order.dishes" :key="d.dish[0]">
-        <h4 class="pa-6">{{ d.dish[0] }}</h4>
-      </v-card>
+      <dish-card
+        v-for="d of this.order.dishes"
+        :key="d.dish[0]"
+        :dish="d.dish"
+        class="my-3"
+      />
+
       <div
         class="d-flex flex-row pa-6 align-center justify-center"
         @click="newDish"
@@ -28,9 +33,13 @@
 
 <script>
 import { mapGetters } from "vuex";
+import DishCard from "@/components/DishCard.vue";
 
 export default {
   name: "Home",
+  components: {
+    DishCard,
+  },
   data() {
     return {
       order: {
@@ -50,10 +59,12 @@ export default {
       this.order.dishes.push({ dish: ["Cheesy Bagel"] });
     },
     submitOrder() {
-      console.log(this.order);
       this.$func.order(this.order).then((resp) => {
-        this.orderSubmitted = resp;
+        this.orderSubmitted = resp; // possibly make an animation for order sent, order recieved
       });
+    },
+    printOrder() {
+      console.log(this.order);
     },
   },
   created() {
