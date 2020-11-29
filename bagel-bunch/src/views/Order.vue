@@ -32,17 +32,26 @@
     <div v-else class="d-flex justify-center align-center">
       <h1>Order Submitted!</h1>
     </div>
+
+    <v-overlay :value="overlay">
+      <edit-item-overlay
+        :dishNameProp="currentDish"
+        :overlayProp="[overlay]"
+        @switchOff="switchOff"
+      />
+    </v-overlay>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import DishCard from "@/components/DishCard.vue";
+import EditItemOverlay from "@/components/EditItemOverlay/EditItemOverlay.vue";
 
 export default {
   name: "Home",
   components: {
     DishCard,
+    EditItemOverlay,
   },
   data() {
     return {
@@ -50,17 +59,17 @@ export default {
         // account ID is automatically sent so we don't need to handle it here
         milliseconds: 1234, // number
         cost: 2345, // number
-        dishes: [
-          { dish: ["Original Bagel", "salsa"] },
-          { dish: ["Cheesy Bagel", "Something on it"] },
-        ],
+        dishes: [],
       },
       orderSubmitted: false,
+      overlay: false,
+      currentDish: "Item 1",
     };
   },
   methods: {
     newDish() {
-      this.order.dishes.push({ dish: ["Cheesy Bagel"] });
+      this.overlay = true;
+      this.currentDish = `Item ${this.order.dishes.length + 1}`;
     },
     submitOrder() {
       this.$func.order(this.order).then((resp) => {
@@ -70,11 +79,9 @@ export default {
     printOrder() {
       console.log(this.order);
     },
-  },
-  computed: {
-    ...mapGetters({
-      menu: "parsedMenu",
-    }),
+    switchOff() {
+      this.overlay = false;
+    },
   },
 };
 </script>
