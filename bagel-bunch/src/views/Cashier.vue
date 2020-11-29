@@ -16,20 +16,9 @@
           color="primary"
           class="mb-0"
         >
-        
-          <!-- <v-text-field
-            v-model="search"
-            clearable
-            flat
-            solo-inverted
-            hide-details
-            prepend-inner-icon="mdi-magnify"
-            label="Search"
-          ></v-text-field> -->
+
 
           <template v-if="$vuetify.breakpoint.mdAndUp">
-
-            <!-- <v-spacer></v-spacer> -->
 
             <v-select
               v-model="sortBy"
@@ -74,9 +63,7 @@
 
       <!-- Cards -->
       <template  v-slot:default="props">
-        <v-row
-
-        >
+        <v-row>
           <v-col
             v-for="item in props.items"
             :key="item.orderID"
@@ -134,19 +121,6 @@
               </v-list>
             </v-card>
           </v-col>
-          <!-- <v-col
-            sm="12"
-            md="4"
-            lg="4"
-          >
-            <v-card>
-              <v-card-title class="subheading font-weight-bold">
-                {{ item.accountID }}
-              </v-card-title>
-              <v-divider class="mt-0"></v-divider>
-
-            </v-card>
-          </v-col> -->
         </v-row>
       </template>
 
@@ -315,7 +289,6 @@ export default {
   },
   methods: {
     dishesOfItem(item) {
-      console.log(item)
       this.dishesPopUp = true
       this.dishesPopUpItem = item;
     },
