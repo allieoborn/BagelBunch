@@ -8,11 +8,12 @@
       :sort-by="sortBy.toLowerCase()"
       :sort-desc="sortDesc"
       hide-default-footer
+      
     >
       <!-- Header -->
       <template v-slot:header>
         <v-toolbar
-          color="color2"
+          color="primary"
           class="mb-1"
         >
         
@@ -51,7 +52,7 @@
               <v-btn
                 large
                 depressed
-                color="color2"
+                color="primary"
                 :value="false"
               >
                 <v-icon>mdi-arrow-up</v-icon>
@@ -59,7 +60,7 @@
               <v-btn
                 large
                 depressed
-                color="color2"
+                color="primary"
                 :value="true"
               >
                 <v-icon>mdi-arrow-down</v-icon>
@@ -83,14 +84,14 @@
             lg="6"
             
           >
-          <!-- light -->
-            <v-card color="color2" >
-              <v-card-title  class="subheading font-weight-bold">
+            <v-card>
+              <v-card-title class="subheading font-weight-bold">
 
                 <v-select 
                   @change="sendOrderUpdate"
                   :items="getSelectItems(item)"
                   :label="item.status.toUpperCase()"
+                  background-color="primary"
                   solo
                   hide-details
                 ></v-select>
@@ -100,15 +101,15 @@
               <v-divider class="mt-0"></v-divider>
 
               <v-row>
-                <v-card class="mx-auto py-2 px-5">Dishes:</v-card>
+                <v-card color="primary" class="mx-auto py-2 px-5">Dishes:</v-card>
               </v-row>
 
-              <v-list color="color2" dense>
+              <v-list dense>
 
                 <v-list-item v-for="(dish, idx) in item.dishes" :key="idx">
 
-                  <v-card class="my-2 align-end"> 
-                    <!-- color="color2"> -->
+                  <v-card color="primary" class="my-2 align-end"> 
+                    <!-- color="primary"> -->
                     <v-list-item-content>
                       <v-col 
                         v-for="(asdf, idx) in dish.dish" 
@@ -125,7 +126,7 @@
                 <v-list-item>
 
                   <v-list-item-content>
-                    Cost: {{ item.cost }}
+                    Cost: ${{ item.cost }}
                   </v-list-item-content>
 
                   <v-list-item-content class="align-end">
@@ -153,7 +154,7 @@
               <v-btn
                 dark
                 text
-                color="color2"
+                color="primary"
                 class="ml-2"
                 v-bind="attrs"
                 v-on="on"
@@ -184,7 +185,7 @@
           <v-btn
             fab
             
-            color="color2"
+            color="primary"
             class="mr-1"
             @click="formerPage"
           >
@@ -193,7 +194,7 @@
           <v-btn
             fab
             
-            color="color2"
+            color="primary"
             class="ml-1"
             @click="nextPage"
           >

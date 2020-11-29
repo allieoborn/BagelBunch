@@ -29,7 +29,12 @@
     </v-app-bar>
 
     <!-- Drawer, I wasn't able to move to Component -->
-    <v-navigation-drawer name="Drawer" v-model="drawer" absolute temporary>
+    <v-navigation-drawer 
+      name="Drawer" 
+      v-model="drawer" 
+      absolute 
+      temporary
+    >
       <!-- User Name and Email -->
       <v-list-item>
         <!-- Back Button -->
@@ -125,7 +130,7 @@ export default {
     this.$func.getMenu();
     this.$func.getOrders()
 
-    // this.$func.login( { email: "cashier@bb.com", password: "asdf" } );
+    this.$func.login( { email: "cashier@bb.com", password: "asdf" } );
 
   }
 };
