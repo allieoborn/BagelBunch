@@ -20,13 +20,10 @@
 
       <div class="form-group">
         <label for="inputType">Employee Type</label>
-        <input
-          v-model="form.type"
-          type="text"
-          class="form-control"
-          id="inputType"
-          placeholder="Cashier or Chef"
-        />
+        <v-select
+          @change="form.type"
+          :items="this.items"
+        ></v-select>
       </div>
 
       <div class="form-group">
@@ -47,7 +44,7 @@
           type="password"
           class="form-control"
           id="inputPassword"
-          placeholder="Default Password"
+          placeholder="Employee Password"
         />
       </div>
       
@@ -80,6 +77,11 @@ export default {
         type: "",
         money: 100,
       },
+      items: [
+        "Cashier",
+        "Chef",
+        "Manager"
+      ],
       created: false,
     };
   },

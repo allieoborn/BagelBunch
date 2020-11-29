@@ -32,3 +32,6 @@
     * Cashier View
     * Chef View
     * Order View
+
+## Sprint Reports
+* docs/Planning/StandupReports
