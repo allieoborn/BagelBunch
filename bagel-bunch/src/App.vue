@@ -129,9 +129,6 @@ export default {
   created() {
     this.$func.getMenu();
     this.$func.getOrders()
-
-    this.$func.login( { email: "cashier@bb.com", password: "asdf" } );
-
   }
 };
 </script>
