@@ -32,7 +32,6 @@ export default {
     updateBeverage(beverage, toggle) {
       toggle();
       this.beverage = beverage;
-      console.log(beverage);
       this.$emit("dishEdit", [this.beverage.name]);
     },
   },
