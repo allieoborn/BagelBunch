@@ -56,7 +56,7 @@
 <script>
 import ItemType from "./ItemType.vue";
 import { mapGetters } from "vuex";
-import SelectBagelOptions from "./SelectBagelOptions.vue";
+import SelectBagelOptions from "./SelectBagelOptions/SelectBagelOptions.vue";
 import SelectBeverageOptions from "./SelectBeverageOptions.vue";
 import SelectShmearOptions from "./SelectShmearOptions.vue";
 

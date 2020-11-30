@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%">
-    <v-item-group style="width=100%">
+    <v-item-group style="width=100%" mandatory>
       <v-container>
         <v-row>
           <v-col
