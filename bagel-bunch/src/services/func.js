@@ -26,11 +26,6 @@ const functions = {
     return resp.data;
   },
 
-  async order() {
-    let resp = await axios.post('/order');
-    return resp.data;
-  },
-
   async getMenu() {
     let resp = await axios.post('/getMenu')
 
@@ -90,7 +85,7 @@ const functions = {
 
   async addMoney(amount) {
     let resp = await axios.post('/addMoney', { money: amount });
-    
+
     if (resp.data.success) {
       store.state.user.money += amount;
     }
