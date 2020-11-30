@@ -17,13 +17,19 @@
     </div>
 
     <div class="scroller bagels">
-      <h3
-        class="my-0 py-2"
-        v-for="topping in menu.toppings"
-        :key="topping.name"
-      >
-        {{ topping.name }}
-      </h3>
+      <v-item-group multiple>
+        <div v-for="(topping, i) in menu.toppings" :key="i">
+          <v-item v-slot="{ active, toggle }">
+            <v-card
+              class="ma-1"
+              :color="active ? 'primary' : 'secondary'"
+              @click="updateToppings(topping, toggle)"
+            >
+              <h3 class="ma-0">{{ topping.name }}</h3>
+            </v-card>
+          </v-item>
+        </div>
+      </v-item-group>
     </div>
   </div>
 </template>
@@ -36,14 +42,26 @@ export default {
   data() {
     return {
       bagel: null,
-      toppings: null,
+      toppings: [],
     };
   },
   methods: {
     updateBagel(bagel, toggle) {
       toggle();
       this.bagel = bagel;
-      console.log(this.bagel);
+    },
+    updateToppings(topping, toggle) {
+      toggle();
+      // check if topping is already in the list and remove it if it is
+      if (this.toppings.includes(topping)) {
+        const index = this.toppings.indexOf(topping);
+        if (index > -1) {
+          this.toppings.splice(index, 1);
+        }
+      } else {
+        // otherwise add it to the list
+        this.toppings.push(topping);
+      }
     },
   },
   computed: {
