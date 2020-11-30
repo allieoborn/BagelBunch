@@ -43,12 +43,14 @@ export default {
     return {
       bagel: null,
       toppings: [],
+      dishArray: [],
     };
   },
   methods: {
     updateBagel(bagel, toggle) {
       toggle();
       this.bagel = bagel;
+      this.remakeDishList();
     },
     updateToppings(topping, toggle) {
       toggle();
@@ -62,6 +64,14 @@ export default {
         // otherwise add it to the list
         this.toppings.push(topping);
       }
+      this.remakeDishList();
+    },
+    remakeDishList() {
+      if (this.bagel == null) return;
+      this.$emit("dishEdit", [
+        this.bagel.name,
+        ...this.toppings.map((t) => t.name),
+      ]);
     },
   },
   computed: {

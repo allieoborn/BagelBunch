@@ -35,7 +35,10 @@
             height="200px"
             width="550"
           >
-            <select-bagel-options v-if="ThisItemType === 'Bagel'" />
+            <select-bagel-options
+              v-if="ThisItemType === 'Bagel'"
+              @dishEdit="dishEdit($event)"
+            />
             <select-beverage-options v-if="ThisItemType === 'Beverage'" />
             <select-shmear-options v-if="ThisItemType === 'Shmear'" />
           </v-card>
@@ -44,7 +47,7 @@
     </v-stepper>
     <v-container>
       <v-row class="justify-center">
-        <v-btn color="secondary"> Done </v-btn>
+        <v-btn color="secondary" @click="dishDone"> Done </v-btn>
       </v-row>
       <v-row class="justify-center">
         <v-btn @click="turnOffOverlay" text> Cancel </v-btn>
@@ -90,9 +93,13 @@ export default {
       this.ThisItemType = value;
       this.e1 = 2;
     },
-  },
-  created() {
-    console.log(this.menu);
+    dishEdit(newDishList) {
+      this.dish = newDishList;
+    },
+    dishDone() {
+      this.$emit("dishDone", this.dish);
+      this.turnOffOverlay();
+    },
   },
   computed: {
     ...mapGetters({

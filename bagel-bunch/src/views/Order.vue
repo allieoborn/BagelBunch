@@ -12,8 +12,8 @@
       <!-- Card for each dish in the order so far -->
       <v-expansion-panels>
         <dish-card
-          v-for="d of this.order.dishes"
-          :key="d.dish[0]"
+          v-for="(d, i) of this.order.dishes"
+          :key="i"
           :dishProp="d.dish"
           class="my-3"
         />
@@ -36,8 +36,10 @@
     <v-overlay :value="overlay">
       <edit-item-overlay
         :dishNameProp="currentDish"
+        :dishProp="dishToEdit"
         :overlayProp="[overlay]"
         @switchOff="switchOff"
+        @dishDone="dishDone($event)"
       />
     </v-overlay>
   </div>
@@ -64,12 +66,16 @@ export default {
       orderSubmitted: false,
       overlay: false,
       currentDish: "Item 1",
+      dishToEdit: [],
     };
   },
   methods: {
     newDish() {
       this.overlay = true;
       this.currentDish = `Item ${this.order.dishes.length + 1}`;
+    },
+    dishDone(thisDish) {
+      this.order.dishes.push({ dish: thisDish });
     },
     submitOrder() {
       this.$func.order(this.order).then((resp) => {
