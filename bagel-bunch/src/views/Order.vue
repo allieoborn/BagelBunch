@@ -4,7 +4,6 @@
       <!-- Top stuff -->
       <div class="d-flex justify-space-between">
         <h1>Order</h1>
-        <v-btn @click="printOrder">Print Order</v-btn>
         <v-btn color="primary" @click="submitOrder">Order Complete</v-btn>
       </div>
       <hr />
@@ -81,9 +80,6 @@ export default {
       this.$func.order(this.order).then((resp) => {
         this.orderSubmitted = resp; // possibly make an animation for order sent, order recieved
       });
-    },
-    printOrder() {
-      console.log(this.order);
     },
     switchOff() {
       this.overlay = false;
