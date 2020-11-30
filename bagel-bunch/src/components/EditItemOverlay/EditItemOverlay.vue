@@ -39,7 +39,10 @@
               v-if="ThisItemType === 'Bagel'"
               @dishEdit="dishEdit($event)"
             />
-            <select-beverage-options v-if="ThisItemType === 'Beverage'" />
+            <select-beverage-options
+              v-if="ThisItemType === 'Beverage'"
+              @dishEdit="dishEdit($event)"
+            />
             <select-shmear-options v-if="ThisItemType === 'Shmear'" />
           </v-card>
         </v-stepper-content>
