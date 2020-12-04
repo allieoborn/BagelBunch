@@ -15,6 +15,7 @@
         <v-toolbar
           color="primary"
           class="mb-0"
+          light
         >
           <template v-if="$vuetify.breakpoint.mdAndUp">
 
@@ -79,6 +80,7 @@
                   :label="item.status.toUpperCase()"
                   background-color="primary"
                   solo
+                  light
                   hide-details
                 ></v-select>
 
@@ -87,7 +89,7 @@
               <v-divider class="mt-0"></v-divider>
 
               <v-list>
-                <v-list-item>
+                <v-list-item light >
                   <v-card color="primary" class="align-end"> 
                     <v-list-item-content class="m-0 p-0">
                       <v-col>Name: {{ item.account.name }}  </v-col>
@@ -182,7 +184,7 @@
             class="mr-1"
             @click="formerPage"
           >
-            <v-icon>mdi-chevron-left</v-icon>
+            <v-icon  class="black--text" >mdi-chevron-left</v-icon>
           </v-btn>
           <v-btn
             fab
@@ -191,7 +193,7 @@
             class="ml-1"
             @click="nextPage"
           >
-            <v-icon>mdi-chevron-right</v-icon>
+            <v-icon  class="black--text" >mdi-chevron-right</v-icon>
           </v-btn>
         </v-row>
       </template>

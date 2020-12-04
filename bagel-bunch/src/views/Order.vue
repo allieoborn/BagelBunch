@@ -4,7 +4,7 @@
       <!-- Top stuff -->
       <div class="d-flex justify-space-between">
         <h1>Order</h1>
-        <v-btn color="primary" @click="submitOrder">Order Complete</v-btn>
+        <v-btn color="primary" class="black--text" @click="submitOrder">Order Complete</v-btn>
       </div>
       <hr />
 

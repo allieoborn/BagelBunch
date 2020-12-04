@@ -15,6 +15,7 @@
         <v-toolbar
           color="primary"
           class="mb-1"
+          light
         >
         
           <v-text-field
@@ -25,6 +26,7 @@
             hide-details
             prepend-inner-icon="mdi-magnify"
             label="Search"
+            
           ></v-text-field>
 
           <template v-if="$vuetify.breakpoint.mdAndUp">
@@ -82,7 +84,6 @@
             sm="12"
             md="6"
             lg="6"
-            
           >
             <v-card>
               <v-card-title class="subheading font-weight-bold">
@@ -93,6 +94,7 @@
                   :label="item.status.toUpperCase()"
                   background-color="primary"
                   solo
+                  light
                   hide-details
                 ></v-select>
 
@@ -101,16 +103,16 @@
               <v-divider class="mt-0"></v-divider>
 
               <v-row>
-                <v-card color="primary" class="mx-auto py-2 px-5">Dishes:</v-card>
+                <v-card light color="primary" class="mx-auto py-2 px-5">Dishes:</v-card>
               </v-row>
 
               <v-list dense>
 
                 <v-list-item v-for="(dish, idx) in item.dishes" :key="idx">
 
-                  <v-card color="primary" class="my-2 align-end"> 
+                  <v-card light color="primary" class="my-2 align-end"> 
                     <!-- color="primary"> -->
-                    <v-list-item-content>
+                    <v-list-item-content >
                       <v-col 
                         v-for="(asdf, idx) in dish.dish" 
                         :key="idx" 
@@ -160,7 +162,7 @@
                 v-on="on"
               >
                 {{ itemsPerPage }}
-                <v-icon>mdi-chevron-down</v-icon>
+                <v-icon >mdi-chevron-down</v-icon>
               </v-btn>
             </template>
             <v-list>
@@ -177,19 +179,17 @@
           <v-spacer></v-spacer>
 
           <span
-            class="mr-4
-            grey--text"
+            class="mr-4 grey--text"
           >
             Page {{ page }} of {{ numberOfPages }}
           </span>
           <v-btn
             fab
-            
             color="primary"
             class="mr-1"
             @click="formerPage"
           >
-            <v-icon>mdi-chevron-left</v-icon>
+            <v-icon class="black--text" >mdi-chevron-left</v-icon>
           </v-btn>
           <v-btn
             fab
@@ -197,7 +197,7 @@
             class="ml-1"
             @click="nextPage"
           >
-            <v-icon>mdi-chevron-right</v-icon>
+            <v-icon class="black--text" >mdi-chevron-right</v-icon>
           </v-btn>
         </v-row>
       </template>

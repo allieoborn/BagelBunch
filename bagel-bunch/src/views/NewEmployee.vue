@@ -50,13 +50,13 @@
       
 
       <div class="m-5">
-        <button
+        <v-btn
           @click="createAccount"
-          type="submit"
-          :class="['col-5', 'btn', `btn-${$store.state.site.mainColor}`]"
+          class="col-5"
+          color="secondary"
         >
           Create
-        </button>
+        </v-btn>
       </div>
     </div>
     <div v-else>
