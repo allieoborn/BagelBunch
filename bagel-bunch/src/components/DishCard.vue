@@ -12,6 +12,7 @@
           }}</v-row>
         </v-container>
         <v-btn @click="deleteOrder">Delete This Dish</v-btn>
+        <v-btn @click="editOrder(dish)">Edit This Dish</v-btn>
       </v-card>
     </v-expansion-panel-content>
   </v-expansion-panel>
@@ -31,6 +32,9 @@ export default {
   methods: {
     deleteOrder() {
       this.$emit("delete");
+    },
+    editOrder(dishArg) {
+      this.$emit("edit", dishArg);
     },
   },
 };

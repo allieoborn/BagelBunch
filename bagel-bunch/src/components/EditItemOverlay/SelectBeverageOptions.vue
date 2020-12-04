@@ -3,13 +3,13 @@
     style="height: 100%"
     class="d-flex flex-column justify-center align-center"
   >
-    <v-item-group>
+    <v-item-group v-model="selectedBeverage">
       <div v-for="(beverage, i) in menu.beverages" :key="i">
         <v-item v-slot="{ active, toggle }">
           <v-card
             class="ma-1"
             :color="active ? 'primary' : 'secondary'"
-            @click="updateBeverage(beverage, toggle)"
+            @click="updateBeverage(toggle)"
           >
             <h3 class="ma-0">{{ beverage.name }}</h3>
           </v-card>
@@ -23,22 +23,32 @@
 import { mapGetters } from "vuex";
 export default {
   name: "SelectBeverageOptions",
+  props: {
+    dishProp: Object,
+  },
   data() {
     return {
-      beverage: null,
+      selectedBeverage: [],
     };
   },
   methods: {
-    updateBeverage(beverage, toggle) {
+    updateBeverage(toggle) {
       toggle();
-      this.beverage = beverage;
-      this.$emit("dishEdit", [this.beverage.name]);
+      this.$emit("dishEdit", {
+        dish: [this.menu.beverages[this.selectedBeverage]],
+      });
     },
   },
   computed: {
     ...mapGetters({
       menu: "parsedMenu",
     }),
+  },
+  created() {
+    if (this.dish != null) {
+      console.log(this.dish);
+      console.log("Editing Bagel");
+    }
   },
 };
 </script>

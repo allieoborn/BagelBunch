@@ -11,11 +11,13 @@
       <!-- Card for each dish in the order so far -->
       <v-expansion-panels>
         <dish-card
-          v-for="(d, i) of this.order.dishes"
+          v-for="(d, i) of this.dishes"
           :key="i"
           :dishProp="d.dish"
           class="my-3"
+          :update="updateCards"
           @delete="deleteDish(d)"
+          @edit="editDish($event)"
         />
       </v-expansion-panels>
 
@@ -57,37 +59,50 @@ export default {
   },
   data() {
     return {
-      order: {
-        // account ID is automatically sent so we don't need to handle it here
-        milliseconds: 1234, // number
-        cost: 2345, // number
-        dishes: [],
-      },
+      milliseconds: 1234, // number
+      cost: 2345, // number
+      dishes: [],
       orderSubmitted: false,
       overlay: false,
       currentDish: "Item 1",
-      dishToEdit: [],
+      dishToEdit: null,
+      updateCards: false,
     };
   },
   methods: {
     newDish() {
       this.overlay = true;
-      this.currentDish = `Item ${this.order.dishes.length + 1}`;
+      this.currentDish = `Item ${this.dishes.length + 1}`;
     },
     dishDone(thisDish) {
-      this.order.dishes.push({ dish: thisDish });
+      if (this.dishToEdit != null) {
+        this.updateCards = !this.updateCards;
+      } else {
+        this.dishes.push({ dish: thisDish.dish.map((d) => d.name) });
+      }
     },
     deleteDish(dish) {
-      var dishIndex = this.order.dishes.indexOf(dish);
-      this.order.dishes.splice(dishIndex, 1);
+      var dishIndex = this.dishes.indexOf(dish.name);
+      this.dishes.splice(dishIndex, 1);
+    },
+    editDish(dish) {
+      this.dishToEdit = { dish: dish };
+      this.overlay = true;
     },
     submitOrder() {
-      this.$func.order(this.order).then((resp) => {
-        this.orderSubmitted = resp; // possibly make an animation for order sent, order recieved
-      });
+      this.$func
+        .order({
+          dishes: this.dishes,
+          cost: this.cost,
+          milliseconds: this.milliseconds,
+        })
+        .then((resp) => {
+          this.orderSubmitted = resp; // possibly make an animation for order sent, order recieved
+        });
     },
     switchOff() {
       this.overlay = false;
+      this.dishToEdit = null;
     },
   },
 };
