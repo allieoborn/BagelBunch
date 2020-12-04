@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-data-iterator
-      :items="items"
+      :items="filteredItems"
       :items-per-page.sync="itemsPerPage"
       :page="page"
       :search="search"
@@ -193,7 +193,6 @@
           </v-btn>
           <v-btn
             fab
-            
             color="primary"
             class="ml-1"
             @click="nextPage"
@@ -242,7 +241,14 @@ export default {
       return this.keys
       // return this.keys.filter(key => key !== 'milliseconds')
     },
-    ...mapGetters({ items: "orders" })
+    ...mapGetters({ items: "orders", user: "user" }),
+    filteredItems() {
+      return this.items.filter((order) => 
+        this.user.type === "manager" 
+        || 
+        ["ordered", "in-progress"].includes(order.status)
+      )
+    }
   },
   methods: {
     getSelectItems(item) {

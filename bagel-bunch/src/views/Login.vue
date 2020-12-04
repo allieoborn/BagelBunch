@@ -2,7 +2,7 @@
   <div class="content-section container">
     <fieldset class="border-bottom form-group">
       <legend>
-        <h2>Welcome to {{ $store.state.site.compName }}</h2>
+        <h2>Welcome to {{ $store.state.compName }}</h2>
       </legend>
     </fieldset>
 
@@ -33,13 +33,14 @@
     </div>
 
     <div class="m-5">
-      <button
+      <v-btn
         @click="submitLogin"
-        type="submit"
-        :class="['col-5', 'btn', `btn-${$store.state.site.mainColor}`]"
+        :loading="loading"
+        class="col-5"
+        color="secondary"
       >
         Login
-      </button>
+      </v-btn>
     </div>
 
     <div class="m-5">
@@ -57,15 +58,18 @@ export default {
         email: "",
         password: "",
       },
+      loading: false,
       error: null,
     };
   },
   methods: {
     submitLogin() {
+      this.loading = true;
       this.$func.login(this.form).then((resp) => {
         if (!resp.success) {
           this.error = resp.error;
         }
+        this.loading = false;
       });
     },
     createAccount() {

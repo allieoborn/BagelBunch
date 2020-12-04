@@ -16,7 +16,7 @@
       <v-spacer></v-spacer>
 
       <img src="favicon.ico" alt="Bagel-Logo" width="50" class="mx-5" />
-      <div class="h3 my-0">{{ site.compName }}</div>
+      <div class="h3 my-0">{{ $store.state.compName }}</div>
 
       <v-spacer></v-spacer>
 
@@ -118,12 +118,14 @@ export default {
     },
     ...mapGetters({
       user: "user",
-      site: "site",
     }),
   },
   created() {
     this.$func.getMenu();
     this.$func.getOrders();
-  }
+  },
+  // mounted() {
+  //   this.$func.login({email:"cashier@bb.com", password:"asdf"})
+  // }
 };
 </script>

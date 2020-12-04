@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-data-iterator
-      :items="items"
+      :items="filteredItems"
       :items-per-page.sync="itemsPerPage"
       :page="page"
       :search="search"
@@ -287,6 +287,7 @@ export default {
       orderTypes: [
         "in-progress",
         "completed",
+
         "delivered",
         "cancelled"
       ]
@@ -300,7 +301,14 @@ export default {
       return this.keys
       // return this.keys.filter(key => key !== 'milliseconds')
     },
-    ...mapGetters({ items: "orders" })
+    ...mapGetters({ items: "orders", user: "user" }),
+    filteredItems() {
+      return this.items.filter((order) => 
+        this.user.type === "manager" 
+        || 
+        "completed" ===order.status
+      )
+    }
   },
   methods: {
     dishesOfItem(item) {
