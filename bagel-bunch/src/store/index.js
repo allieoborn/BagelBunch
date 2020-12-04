@@ -6,22 +6,17 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
 
+    compName: "BagelBunch",
+
     loggedIn: false,
 
     accountID: null,
-
     user: {
       type: null
     },
 
     menu: null,
     orders: null,
-
-    site: {
-      compName: "BagelBunch",
-      mainColor: "dark",
-      accentColor: "primary", // not used anywhere yet
-    },
 
   },
   getters: {
@@ -38,7 +33,7 @@ export default new Vuex.Store({
       return state.orders;
     },
     parsedMenu(state) {
-      var pMenu = {}
+      var pMenu = {};
       for (var item of state.menu) {
         if (pMenu[item.type] == undefined) { // if there's nothing start the list
           pMenu[item.type] = [item];

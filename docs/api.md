@@ -87,6 +87,7 @@
     * onlyAccountOrders: Optional[bool]
 * Response
     * success: bool
+    * error: Optional[str]
     * orders: List[Order]
 
 ### POST /updateOrderStatus
@@ -95,3 +96,12 @@
     * status: str (in-progress, completed, delivered, cancelled)
 * Response
     * success: bool
+    * error: Optional[str]
+
+### POST /getAccount
+* Request
+    * requestedAccountID: str
+* Response
+    * success: bool
+    * error: Optional[str]
+    * requestedAccount: Account

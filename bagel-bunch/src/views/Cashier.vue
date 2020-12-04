@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-data-iterator
-      :items="items"
+      :items="filteredItems"
       :items-per-page.sync="itemsPerPage"
       :page="page"
       :search="search"
@@ -16,8 +16,6 @@
           color="primary"
           class="mb-0"
         >
-
-
           <template v-if="$vuetify.breakpoint.mdAndUp">
 
             <v-select
@@ -88,9 +86,21 @@
 
               <v-divider class="mt-0"></v-divider>
 
-              <v-row >
-                <v-col class="m-3">OrderID: {{ item.orderID }}</v-col>
-              </v-row>
+              <v-list>
+                <v-list-item>
+                  <v-card color="primary" class="align-end"> 
+                    <v-list-item-content class="m-0 p-0">
+                      <v-col>Name: {{ item.account.name }}  </v-col>
+                    </v-list-item-content>
+                    <v-list-item-content class="m-0 p-0">
+                      <v-col>Email: {{ item.account.email }}</v-col>
+                    </v-list-item-content>
+                    <v-list-item-content class="m-0 p-0">
+                      <v-col>Money: {{ item.account.money }}</v-col>                    
+                    </v-list-item-content>
+                  </v-card>
+                </v-list-item> 
+              </v-list>
 
               <v-divider class="mt-0"></v-divider>
               
@@ -257,22 +267,28 @@ export default {
 
       dishesPopUp: false,
       dishesPopUpItem: null,
+
       itemsPerPageArray: [4, 8, 12, 16],
-      search: '',
-      filter: {},
-      sortDesc: false,
       page: 1,
       itemsPerPage: 8,
+
+      search: '',
+      filter: {},
+
+      sortDesc: false,
       sortBy: 'miliseconds',
+
       keys: [
         { text: "Status", value: "status" },
         { text: "Cost", value: "cost" },
         { text: "Time", value: "miliseconds" },
       ],
+
       orderTypes: [
-        "in-progress", 
-        "completed", 
-        "delivered", 
+        "in-progress",
+        "completed",
+
+        "delivered",
         "cancelled"
       ]
     }
@@ -285,7 +301,14 @@ export default {
       return this.keys
       // return this.keys.filter(key => key !== 'milliseconds')
     },
-    ...mapGetters({ items: "orders" })
+    ...mapGetters({ items: "orders", user: "user" }),
+    filteredItems() {
+      return this.items.filter((order) => 
+        this.user.type === "manager" 
+        || 
+        "completed" ===order.status
+      )
+    }
   },
   methods: {
     dishesOfItem(item) {
@@ -300,7 +323,6 @@ export default {
       return dict;
     },
     sendOrderUpdate(order) {
-      // console.log("asdf", order)
       this.$func.updateOrderStatus(order);
     },
     formatTime(mili) {

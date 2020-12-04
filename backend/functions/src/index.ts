@@ -312,6 +312,20 @@ export const updateOrderStatus = functions.https.onRequest(async (request, respo
     return;
 });
 
+export const getAccount = functions.https.onRequest(async (request, response) => {
+    if (!(await functionWrapper(request, response))) {
+        return;
+    }
+    const requestedAccountID = request.body.requestedAccountID;
+    if (!requestedAccountID) {
+        response.status(400).json({success: false, error: 'requestedAccountID argument required'});
+        return;
+    }
+    const requestedAccount = await firebaseHelper.firestore.getDocument(db, 'accounts', requestedAccountID);
+    response.status(200).json({success: true, requestedAccount: requestedAccount});
+    return;
+});
+
 const functionWrapper = async function (request: any, response: any) {
     response.set('Access-Control-Allow-Origin', '*');
     if (request.method === 'OPTIONS') {
