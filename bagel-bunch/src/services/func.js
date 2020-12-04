@@ -17,16 +17,15 @@ const functions = {
 
   },
 
-  async getOrders(first=false) {
+  async getOrders() {
     let resp = await axios.post('/getOrders')
 
     if (resp.data.success) {
       store.state.orders = resp.data.orders;
-      if (!first) {
-        for (var order of store.state.orders) {
-          order['account'] = await this.getAccount(order.accountID);
-        }
+      for (var order of store.state.orders) {
+        order['account'] = await this.getAccount(order.accountID);
       }
+      
     }
 
     return resp.data;
@@ -99,7 +98,7 @@ const functions = {
     let resp = await axios.post('/addMoney', { money: amount });
 
     try {
-      
+
       if (resp.data.success) {
         store.state.user.money += amount;
       }
