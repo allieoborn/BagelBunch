@@ -83,7 +83,7 @@ const functions = {
 
   async addMoney(amount) {
     let resp = await axios.post('/addMoney', { money: amount });
-    
+
     if (resp.data.success) {
       store.state.user.money += amount;
     }
@@ -130,6 +130,11 @@ const functions = {
 
     return confirmed;
   },
+
+  async order(data) {
+    let resp = await axios.post('/order', data)
+    return resp.data.success;
+  }
 }
 
 function routeLogin(account) {

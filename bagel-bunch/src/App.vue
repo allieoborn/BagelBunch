@@ -29,12 +29,7 @@
     </v-app-bar>
 
     <!-- Drawer, I wasn't able to move to Component -->
-    <v-navigation-drawer 
-      name="Drawer" 
-      v-model="drawer" 
-      absolute 
-      temporary
-    >
+    <v-navigation-drawer name="Drawer" v-model="drawer" absolute temporary>
       <!-- User Name and Email -->
       <v-list-item>
         <!-- Back Button -->
