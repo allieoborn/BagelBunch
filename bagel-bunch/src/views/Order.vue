@@ -15,6 +15,7 @@
           :key="i"
           :dishProp="d.dish"
           class="my-3"
+          @delete="deleteDish(d)"
         />
       </v-expansion-panels>
 
@@ -75,6 +76,10 @@ export default {
     },
     dishDone(thisDish) {
       this.order.dishes.push({ dish: thisDish });
+    },
+    deleteDish(dish) {
+      var dishIndex = this.order.dishes.indexOf(dish);
+      this.order.dishes.splice(dishIndex, 1);
     },
     submitOrder() {
       this.$func.order(this.order).then((resp) => {

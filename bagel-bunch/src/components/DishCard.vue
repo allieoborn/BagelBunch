@@ -11,7 +11,7 @@
             ing
           }}</v-row>
         </v-container>
-        <v-btn @click="addIngredient">Add Ingredient</v-btn>
+        <v-btn @click="deleteOrder">Delete This Dish</v-btn>
       </v-card>
     </v-expansion-panel-content>
   </v-expansion-panel>
@@ -29,8 +29,8 @@ export default {
     dishProp: Array,
   },
   methods: {
-    addIngredient() {
-      this.dish.push("Another Thing");
+    deleteOrder() {
+      this.$emit("delete");
     },
   },
 };

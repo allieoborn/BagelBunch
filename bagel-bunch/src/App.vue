@@ -124,6 +124,6 @@ export default {
   created() {
     this.$func.getMenu();
     this.$func.getOrders();
-  },
+  }
 };
 </script>
