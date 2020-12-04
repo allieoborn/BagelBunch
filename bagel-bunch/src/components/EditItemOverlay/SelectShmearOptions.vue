@@ -29,6 +29,7 @@ export default {
   data() {
     return {
       selectedShmear: [],
+      dish: this.dishProp,
     };
   },
   methods: {
@@ -46,8 +47,8 @@ export default {
   },
   created() {
     if (this.dish != null) {
-      console.log(this.dish);
-      console.log("Editing Bagel");
+      const shmearNames = this.menu.shmears.map((b) => b.name);
+      this.selectedShmear = shmearNames.indexOf(this.dish.dish[0]);
     }
   },
 };

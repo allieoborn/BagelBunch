@@ -29,6 +29,7 @@ export default {
   data() {
     return {
       selectedBeverage: [],
+      dish: this.dishProp,
     };
   },
   methods: {
@@ -46,8 +47,8 @@ export default {
   },
   created() {
     if (this.dish != null) {
-      console.log(this.dish);
-      console.log("Editing Bagel");
+      const beverageNames = this.menu.beverages.map((b) => b.name);
+      this.selectedBeverage = beverageNames.indexOf(this.dish.dish[0]);
     }
   },
 };

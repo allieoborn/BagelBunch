@@ -83,8 +83,24 @@ export default {
       }
     },
     deleteDish(dish) {
-      var dishIndex = this.dishes.indexOf(dish.name);
-      this.dishes.splice(dishIndex, 1);
+      var indexToDelete = null;
+      if (this.dishToEdit != null) {
+        // editing and deleting the old item
+        this.dishes.forEach((thisDish, i) => {
+          if (thisDish.dish[0] == this.dishToEdit.dish[0]) {
+            indexToDelete = i;
+          }
+        });
+        this.dishes.splice(indexToDelete, 1);
+      } else {
+        // hitting the delete button
+        this.dishes.forEach((thisDish, i) => {
+          if (thisDish.dish[0] == dish.dish[0]) {
+            indexToDelete = i;
+          }
+        });
+        this.dishes.splice(indexToDelete, 1);
+      }
     },
     editDish(dish) {
       this.dishToEdit = { dish: dish };
