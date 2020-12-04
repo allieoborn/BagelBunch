@@ -1,38 +1,80 @@
 <template>
   <div>
-    <v-container v-if="!orderSubmitted">
-      <!-- Top stuff -->
-      <div class="d-flex justify-space-between">
-        <h1>Order</h1>
-        <v-btn color="primary" class="black--text" @click="submitOrder">Order Complete</v-btn>
-      </div>
-      <hr />
+    <v-stepper v-model="step">
+      <v-stepper-header>
+        <v-stepper-step :complete="step > 1" step="1" editable>
+          Create Order
+        </v-stepper-step>
 
-      <!-- Card for each dish in the order so far -->
-      <v-expansion-panels :key="updateItem">
-        <dish-card
-          v-for="(d, i) of this.dishes"
-          :key="i"
-          :dishProp="d.dish"
-          class="my-3"
-          @delete="deleteDish(d)"
-          @edit="editDish($event)"
-        />
-      </v-expansion-panels>
+        <v-divider></v-divider>
 
-      <!-- Add item button -->
-      <div
-        class="d-flex flex-row pa-6 align-center justify-center"
-        @click="newDish"
-      >
-        <h3 class="m-0 pr-6">Add Item</h3>
-        <v-icon x-large>mdi-plus-circle</v-icon>
-      </div>
-    </v-container>
+        <v-stepper-step :complete="step > 2" step="2" editable>
+          Checkout
+        </v-stepper-step>
+      </v-stepper-header>
 
-    <div v-else class="d-flex justify-center align-center">
-      <h1>Order Submitted!</h1>
-    </div>
+      <v-stepper-items>
+        <v-stepper-content step="1">
+          <v-container class="mt-15">
+            <!-- Top stuff -->
+            <div class="d-flex justify-space-between">
+              <h1>Order</h1>
+              <v-btn color="primary" @click="toCheckout">Checkout</v-btn>
+            </div>
+            <hr />
+
+            <!-- Card for each dish in the order so far -->
+            <v-expansion-panels :key="updateItem">
+              <dish-card
+                v-for="(d, i) of this.dishes"
+                :key="i"
+                :dishProp="d.dish"
+                class="my-3"
+                @delete="deleteDish(d)"
+                @edit="editDish($event)"
+              />
+            </v-expansion-panels>
+
+            <!-- Add item button -->
+            <div
+              class="d-flex flex-row pa-6 align-center justify-center"
+              @click="newDish"
+            >
+              <h3 class="m-0 pr-6">Add Item</h3>
+              <v-icon x-large>mdi-plus-circle</v-icon>
+            </div>
+          </v-container>
+        </v-stepper-content>
+        <v-stepper-content step="2">
+          <v-container>
+            <!-- Top stuff -->
+            <div class="d-flex justify-space-between">
+              <h1>Checkout</h1>
+              <v-btn color="primary" @click="submitOrder">Order Complete</v-btn>
+            </div>
+            <hr />
+
+            <v-row>
+              <v-col cols="12">
+                <v-card class="d-flex align-center justify-space-around pa-10">
+                  <h1>Pickup Time</h1>
+                  <v-time-picker v-model="time"></v-time-picker>
+                </v-card>
+              </v-col>
+            </v-row>
+
+            <v-row>
+              <v-col cols="12">
+                <v-card class="d-flex align-center justify-space-around pa-10">
+                  <h1>Cost</h1>
+                  <h2>${{ cost }}</h2>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-stepper-content>
+      </v-stepper-items>
+    </v-stepper>
 
     <v-overlay :value="overlay">
       <edit-item-overlay
@@ -49,23 +91,28 @@
 <script>
 import DishCard from "@/components/DishCard.vue";
 import EditItemOverlay from "@/components/EditItemOverlay/EditItemOverlay.vue";
+import { mapGetters } from "vuex";
+// import Timeselector from "vue-timeselector";
 
 export default {
   name: "Home",
   components: {
     DishCard,
     EditItemOverlay,
+    // Timeselector,
   },
   data() {
     return {
       milliseconds: 1234, // number
-      cost: 2345, // number
+      cost: 0, // number
       dishes: [],
       orderSubmitted: false,
       overlay: false,
       currentDish: "Item 1",
       dishToEdit: null,
       updateItem: false,
+      step: 1,
+      time: null,
     };
   },
   methods: {
@@ -106,6 +153,9 @@ export default {
       this.dishToEdit = { dish: dish };
       this.overlay = true;
     },
+    toCheckout() {
+      this.step = 2;
+    },
     submitOrder() {
       this.$func
         .order({
@@ -120,6 +170,35 @@ export default {
     switchOff() {
       this.overlay = false;
       this.dishToEdit = null;
+    },
+  },
+  computed: {
+    ...mapGetters({
+      menu: "menu",
+    }),
+  },
+  watch: {
+    time: function (val) {
+      const hours = val.split(":")[0];
+      const minutes = val.split(":")[1];
+      var total = 0;
+      total += 3600000 * hours;
+      total += 60000 * minutes;
+      this.milliseconds = total;
+    },
+    dishes: function (val) {
+      this.cost = 0;
+      const adjustedMenu = this.menu.map((d) => d.name);
+      for (var item of val) {
+        for (var thing of item.dish) {
+          adjustedMenu.forEach((menuItem, i) => {
+            if (menuItem == thing) {
+              this.cost += this.menu[i].cost;
+            }
+          });
+        }
+      }
+      console.log(this.cost);
     },
   },
 };
