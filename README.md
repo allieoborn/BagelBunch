@@ -35,3 +35,13 @@
 
 ## Sprint Reports
 * docs/Planning/StandupReports
+
+## Login Credentials 
+* Manager username: manager@bb.com
+* Manager password: asdf
+* Chef username: chef@bb.com
+* Chef password: asdf
+* Cashier username: cashier@bb.com
+* Cashier password: asdf
+* Customer username: customer@bb.com
+* Customer password: asdf
