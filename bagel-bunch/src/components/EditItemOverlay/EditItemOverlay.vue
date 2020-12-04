@@ -37,14 +37,17 @@
           >
             <select-bagel-options
               v-if="ThisItemType === 'Bagel'"
+              :dishProp="this.dish"
               @dishEdit="dishEdit($event)"
             />
             <select-beverage-options
               v-if="ThisItemType === 'Beverage'"
+              :dishProp="this.dish"
               @dishEdit="dishEdit($event)"
             />
             <select-shmear-options
               v-if="ThisItemType === 'Shmear'"
+              :dishProp="this.dish"
               @dishEdit="dishEdit($event)"
             />
           </v-card>
@@ -78,7 +81,7 @@ export default {
   },
   name: "EditItemOverlay",
   props: {
-    dishProp: Array,
+    dishProp: Object,
     dishNameProp: String,
     overlayProp: Array,
   },
@@ -111,6 +114,23 @@ export default {
     ...mapGetters({
       menu: "parsedMenu",
     }),
+  },
+  created() {
+    if (this.dishProp !== null) {
+      // if editing
+      // move the stepper and set the second step and set the second step item type to be right
+      const bagelNames = this.menu.bagels.map((b) => b.name);
+      const beverageNames = this.menu.beverages.map((b) => b.name);
+
+      if (bagelNames.includes(this.dish.dish[0])) {
+        console.log("EDITING BAGEL");
+      } else if (beverageNames.includes(this.dish.dish[0])) {
+        this.ThisItemType = "Beverage";
+      } else {
+        this.ThisItemType = "Shmear";
+      }
+      this.e1 = 2;
+    }
   },
 };
 </script>

@@ -9,13 +9,14 @@
       <hr />
 
       <!-- Card for each dish in the order so far -->
-      <v-expansion-panels>
+      <v-expansion-panels :key="updateItem">
         <dish-card
-          v-for="(d, i) of this.order.dishes"
+          v-for="(d, i) of this.dishes"
           :key="i"
           :dishProp="d.dish"
           class="my-3"
           @delete="deleteDish(d)"
+          @edit="editDish($event)"
         />
       </v-expansion-panels>
 
@@ -57,37 +58,68 @@ export default {
   },
   data() {
     return {
-      order: {
-        // account ID is automatically sent so we don't need to handle it here
-        milliseconds: 1234, // number
-        cost: 2345, // number
-        dishes: [],
-      },
+      milliseconds: 1234, // number
+      cost: 2345, // number
+      dishes: [],
       orderSubmitted: false,
       overlay: false,
       currentDish: "Item 1",
-      dishToEdit: [],
+      dishToEdit: null,
+      updateItem: false,
     };
   },
   methods: {
     newDish() {
       this.overlay = true;
-      this.currentDish = `Item ${this.order.dishes.length + 1}`;
+      this.currentDish = `Item ${this.dishes.length + 1}`;
     },
     dishDone(thisDish) {
-      this.order.dishes.push({ dish: thisDish });
+      if (this.dishToEdit != null) {
+        this.deleteDish(thisDish);
+        this.dishes.push({ dish: thisDish.dish.map((d) => d.name) });
+        this.updateItem = !this.updateItem;
+      } else {
+        this.dishes.push({ dish: thisDish.dish.map((d) => d.name) });
+      }
     },
     deleteDish(dish) {
-      var dishIndex = this.order.dishes.indexOf(dish);
-      this.order.dishes.splice(dishIndex, 1);
+      var indexToDelete = null;
+      if (this.dishToEdit != null) {
+        // editing and deleting the old item
+        this.dishes.forEach((thisDish, i) => {
+          if (thisDish.dish[0] == this.dishToEdit.dish[0]) {
+            indexToDelete = i;
+          }
+        });
+        this.dishes.splice(indexToDelete, 1);
+      } else {
+        // hitting the delete button
+        this.dishes.forEach((thisDish, i) => {
+          if (thisDish.dish[0] == dish.dish[0]) {
+            indexToDelete = i;
+          }
+        });
+        this.dishes.splice(indexToDelete, 1);
+      }
+    },
+    editDish(dish) {
+      this.dishToEdit = { dish: dish };
+      this.overlay = true;
     },
     submitOrder() {
-      this.$func.order(this.order).then((resp) => {
-        this.orderSubmitted = resp; // possibly make an animation for order sent, order recieved
-      });
+      this.$func
+        .order({
+          dishes: this.dishes,
+          cost: this.cost,
+          milliseconds: this.milliseconds,
+        })
+        .then((resp) => {
+          this.orderSubmitted = resp; // possibly make an animation for order sent, order recieved
+        });
     },
     switchOff() {
       this.overlay = false;
+      this.dishToEdit = null;
     },
   },
 };
