@@ -9,13 +9,12 @@
       <hr />
 
       <!-- Card for each dish in the order so far -->
-      <v-expansion-panels>
+      <v-expansion-panels :key="updateItem">
         <dish-card
           v-for="(d, i) of this.dishes"
           :key="i"
           :dishProp="d.dish"
           class="my-3"
-          :update="updateCards"
           @delete="deleteDish(d)"
           @edit="editDish($event)"
         />
@@ -66,7 +65,7 @@ export default {
       overlay: false,
       currentDish: "Item 1",
       dishToEdit: null,
-      updateCards: false,
+      updateItem: false,
     };
   },
   methods: {
@@ -76,7 +75,9 @@ export default {
     },
     dishDone(thisDish) {
       if (this.dishToEdit != null) {
-        this.updateCards = !this.updateCards;
+        this.deleteDish(thisDish);
+        this.dishes.push({ dish: thisDish.dish.map((d) => d.name) });
+        this.updateItem = !this.updateItem;
       } else {
         this.dishes.push({ dish: thisDish.dish.map((d) => d.name) });
       }
