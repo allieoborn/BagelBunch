@@ -122,7 +122,7 @@ export default {
   },
   created() {
     this.$func.getMenu();
-    this.$func.getOrders();
+    this.$func.getOrders(true);
   },
   // mounted() {
   //   this.$func.login({email:"cashier@bb.com", password:"asdf"})

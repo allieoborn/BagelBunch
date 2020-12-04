@@ -17,13 +17,15 @@ const functions = {
 
   },
 
-  async getOrders() {
+  async getOrders(first=false) {
     let resp = await axios.post('/getOrders')
 
     if (resp.data.success) {
       store.state.orders = resp.data.orders;
-      for (var order of store.state.orders) {
-        order['account'] = await this.getAccount(order.accountID);
+      if (!first) {
+        for (var order of store.state.orders) {
+          order['account'] = await this.getAccount(order.accountID);
+        }
       }
     }
 
@@ -59,31 +61,56 @@ const functions = {
   async updateName(new_name) {
     let resp = await axios.post('/updateName', { name: new_name });
 
-    if (resp.data.success) {
-      store.state.user.name = new_name;
-    }
+    try {
 
-    return resp.data.success;
+      if (resp.data.success) {
+        store.state.user.name = new_name;
+      }
+  
+      return resp.data.success;
+
+    } catch {
+
+      return false
+
+    }
   },
 
   async updatePassword(new_pass) {
     let resp = await axios.post('/updatePassword', { password: new_pass });
 
-    if (resp.data.success) {
-      store.state.user.password = new_pass;
-    }
 
-    return resp.data.success;
+    try {
+
+      if (resp.data.success) {
+        store.state.user.password = new_pass;
+      }
+  
+      return resp.data.success;
+
+    } catch {
+
+      return false
+
+    }
   },
 
   async addMoney(amount) {
     let resp = await axios.post('/addMoney', { money: amount });
 
-    if (resp.data.success) {
-      store.state.user.money += amount;
-    }
+    try {
+      
+      if (resp.data.success) {
+        store.state.user.money += amount;
+      }
 
-    return resp.data.success;
+      return resp.data.success;
+
+    } catch {
+
+      return false
+
+    }
   },
 
   // Login

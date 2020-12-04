@@ -31,6 +31,7 @@
         placeholder="Password"
       />
     </div>
+    <small>Forgot password? <a href="mailto:manager@bb.com">Contact Us</a></small>
 
     <div class="m-5">
       <v-btn
