@@ -128,7 +128,7 @@ export default {
   },
   created() {
     this.$func.getMenu();
-    this.$func.getOrders()
+    this.$func.getOrders();
   }
 };
 </script>

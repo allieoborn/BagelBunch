@@ -16,14 +16,23 @@ const functions = {
     }
 
   },
+
   async getOrders() {
     let resp = await axios.post('/getOrders')
 
     if (resp.data.success) {
       store.state.orders = resp.data.orders;
+      for (var order of store.state.orders) {
+        order['account'] = await this.getAccount(order.accountID);
+      }
     }
 
     return resp.data;
+  },
+
+  async getAccount(id) {
+    let resp = await axios.post('/getAccount', { requestedAccountID: id })
+    return resp.data.requestedAccount;
   },
 
   async order() {
@@ -48,26 +57,10 @@ const functions = {
 
   async createAccount(data) {
     console.log("Creating Your New Account: ", data);
-    /* Example:
-      data = {
-        name: "", 
-        email: "", 
-        password: "", 
-        type: ('customer', 'chef', 'cashier', 'manager'),
-        money: 0, 
-        favorite: null,
-    */
     let resp = await axios.post('/createAccount', data);
     return resp.data.success;
   },
 
-  /* 
-    For the next 3:    <Andrew>
-    Another Better option that I won't do rn cuz I 
-    need to sleep is just v-model all the data <input/>
-    tags to the $store and then here we just need to 
-    Grab it always from there instead of passing a param.
-  */
   async updateName(new_name) {
     let resp = await axios.post('/updateName', { name: new_name });
 
