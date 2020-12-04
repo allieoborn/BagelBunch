@@ -35,11 +35,6 @@ const functions = {
     return resp.data.requestedAccount;
   },
 
-  async order() {
-    let resp = await axios.post('/order');
-    return resp.data;
-  },
-
   async getMenu() {
     let resp = await axios.post('/getMenu')
 

@@ -16,8 +16,6 @@
           color="primary"
           class="mb-0"
         >
-
-
           <template v-if="$vuetify.breakpoint.mdAndUp">
 
             <v-select
