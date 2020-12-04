@@ -62,6 +62,15 @@
                 </v-card>
               </v-col>
             </v-row>
+
+            <v-row>
+              <v-col cols="12">
+                <v-card class="d-flex align-center justify-space-around pa-10">
+                  <h1>Cost</h1>
+                  <h2>${{ cost }}</h2>
+                </v-card>
+              </v-col>
+            </v-row>
           </v-container>
         </v-stepper-content>
       </v-stepper-items>
@@ -82,6 +91,7 @@
 <script>
 import DishCard from "@/components/DishCard.vue";
 import EditItemOverlay from "@/components/EditItemOverlay/EditItemOverlay.vue";
+import { mapGetters } from "vuex";
 // import Timeselector from "vue-timeselector";
 
 export default {
@@ -94,7 +104,7 @@ export default {
   data() {
     return {
       milliseconds: 1234, // number
-      cost: 2345, // number
+      cost: 0, // number
       dishes: [],
       orderSubmitted: false,
       overlay: false,
@@ -162,9 +172,33 @@ export default {
       this.dishToEdit = null;
     },
   },
+  computed: {
+    ...mapGetters({
+      menu: "menu",
+    }),
+  },
   watch: {
     time: function (val) {
-      console.log(val);
+      const hours = val.split(":")[0];
+      const minutes = val.split(":")[1];
+      var total = 0;
+      total += 3600000 * hours;
+      total += 60000 * minutes;
+      this.milliseconds = total;
+    },
+    dishes: function (val) {
+      this.cost = 0;
+      const adjustedMenu = this.menu.map((d) => d.name);
+      for (var item of val) {
+        for (var thing of item.dish) {
+          adjustedMenu.forEach((menuItem, i) => {
+            if (menuItem == thing) {
+              this.cost += this.menu[i].cost;
+            }
+          });
+        }
+      }
+      console.log(this.cost);
     },
   },
 };
